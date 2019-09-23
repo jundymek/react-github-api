@@ -18,11 +18,11 @@ const StyledH1 = styled.h1`
 `;
 
 
-function MainHeader() {
+function MainHeader(props) {
     return (
       <StyledHeader>
         <StyledH1>Moje repozytoria githuba - React</StyledH1>
-        <SearchBar />
+        <SearchBar handleSearchBarDataChange={props.handleSearchBarDataChange}/>
       </StyledHeader>
     );
   }

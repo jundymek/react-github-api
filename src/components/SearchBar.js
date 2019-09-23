@@ -29,13 +29,17 @@ class SearchBar extends React.Component {
     }
 
     handleInputChange = (e) => {
-        console.log(e.target.value)
         this.setState({inputValue: e.target.value})
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.props.handleSearchBarDataChange(this.state.inputValue)
     }
 
     render () {
         return (
-            <StyledForm>
+            <StyledForm onSubmit={this.handleSubmit}>
                 <StyledInput 
                     type="text" 
                     placeholder="Szukaj repo"
