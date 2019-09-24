@@ -18,6 +18,12 @@ function RepositoryList({data}){
                 <StyledH2>Repositories</StyledH2>
                 : <StyledH2>No data</StyledH2>
             }
+            <ul>
+            {data ? 
+            data.map(item => <li>{item[0]['url']} {item[0]['title']}</li>)
+            : 
+            ''}
+            </ul>
         </StyledSection>
     )
     } 
