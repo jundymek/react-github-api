@@ -11,13 +11,13 @@ const StyledForm = styled.form`
     display: flex;
     flex-wrap: nowrap;
 `
-
+const colors = ['red', 'blue', 'green', 'yellow']
 const StyledButton = styled.button`
     height: 2.5rem;
     padding: .5rem;
     border: none;
     background-color: gray;
-    color: #fff;
+    color: ${colors[Math.floor(Math.random() * colors.length)]};
     width: 5rem;
 `
 class SearchBar extends React.Component {
@@ -44,7 +44,7 @@ class SearchBar extends React.Component {
           console.log(resp);
           const repos = resp.map(item => item.html_url)
           console.log(repos)
-          this.getWantedData(e, resp)
+          this.getWantedData(resp)
         }
       })
       .catch(error => {
@@ -53,8 +53,7 @@ class SearchBar extends React.Component {
     console.log(data);
   };
 
-  getWantedData = (e, data) => {
-    e.preventDefault();
+  getWantedData = (data) => {
     const dataObjects = data.map(item => 
         [{'url': item.html_url, 'title': item.name, 'cration_date': item.created_at, 'modification_date': item.updated_at, 'description': item.description}]
     )

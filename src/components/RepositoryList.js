@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import RepositoryBox from './RepositoryBox';
 
 const StyledSection = styled.section`
     display: flex;
@@ -24,6 +25,7 @@ function RepositoryList({data}){
             : 
             ''}
             </ul>
+            <RepositoryBox />
         </StyledSection>
     )
     } 
