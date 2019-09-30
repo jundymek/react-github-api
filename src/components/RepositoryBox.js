@@ -7,7 +7,6 @@ const ContentLeft = styled.div`
   background: rgba(#000, 0.2);
   width: 100%;
   transition: transform 0.3s ease-in;
-  border-top-left-radius: 12px;
 `;
 
 const Photo = styled.div`
@@ -20,8 +19,6 @@ const Photo = styled.div`
   left: 0;
   bottom: 0;
   z-index: -1;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
 `;
 
@@ -32,8 +29,9 @@ const StyledSection = styled.section`
   width: 90%;
   margin: 40px auto 0 auto;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
+  background: #fff;
   &:hover ${ContentLeft} {
     transform: translateX(0);
   }
@@ -56,6 +54,7 @@ const RightSection = styled.div`
   flex-direction: column;
   width: 60%;
   padding: 30px;
+  position: relative;
 `;
 
 const Title = styled.h2`
@@ -64,6 +63,7 @@ const Title = styled.h2`
   font-size: 1.5rem;
   color: #000;
   text-transform: uppercase;
+  word-wrap: break-word;
 `;
 
 const Description = styled.p`
@@ -82,11 +82,13 @@ const Description = styled.p`
 const Created = styled.p``;
 
 const GithubLink = styled.p`
+  position: absolute;
+  bottom: 0;
   color: #7bd338;
   align-self: flex-end;
+  justify-self: flex-end;
   text-decoration: underline;
   transition: transform 0.3s ease-in;
-  position: relative;
   &:hover {
     transform: translateX(-10px);
   }
@@ -106,24 +108,26 @@ const GithubLink = styled.p`
 `;
 
 class RepositoryBox extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
+    const {title, url, createDate, updateDate, description} = this.props;
     return (
       <StyledSection>
         <LeftSection>
           <Photo />
           <ContentLeft>
-            <Created>Created 📅: 11/10/2019</Created>
-            <Created>Updated 📅: 11/10/2019</Created>
+            <Created>Created 📅: {createDate}</Created>
+            <Created>Updated 📅: {updateDate}</Created>
           </ContentLeft>
         </LeftSection>
         <RightSection>
-          <Title>orlen-first-aid</Title>
+          <Title>{title}</Title>
           <Description>
-            The project was inspired by one of the tasks for the Orlen company during the third edition of HackYeah.
-            Simple application related to the topic of first aid in the event of road accidents. The application
-            describes step by step actions that must be performed during an event.
+            {description ? description : "No desciption for this project"}
           </Description>
-          <GithubLink>Read more</GithubLink>
+          <GithubLink><a href={url}>Read more</a></GithubLink>
         </RightSection>
       </StyledSection>
     );

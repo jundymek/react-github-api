@@ -34,7 +34,7 @@ class SearchBar extends React.Component {
 
   handleFetchData = (e, data) => {
     e.preventDefault();
-    fetch(`https://api.github.com/users/${data}/repos?`)
+    fetch(`https://api.github.com/users/${data}/repos?sort=updated_at&order=desc`)
       .then(resp => resp.json())
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
@@ -55,7 +55,7 @@ class SearchBar extends React.Component {
 
   getWantedData = (data) => {
     const dataObjects = data.map(item => 
-        [{'url': item.html_url, 'title': item.name, 'cration_date': item.created_at, 'modification_date': item.updated_at, 'description': item.description}]
+        [{'url': item.html_url, 'title': item.name, 'cration_date': item.created_at.slice(0, 10), 'modification_date': item.updated_at.slice(0, 10), 'description': item.description}]
     )
     console.log(dataObjects)
     this.props.handleSearchBarDataChange(dataObjects)
