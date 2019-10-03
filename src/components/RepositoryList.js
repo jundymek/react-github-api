@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
 
 const StyledSection = styled.section`
@@ -29,6 +29,7 @@ function RepositoryList({ data }) {
                 createDate={item[0]["cration_date"]}
                 updateDate={item[0]["modification_date"]}
                 description={item[0]["description"]}
+                language={item[0]["language"]}
               />
             ) : (
               <RepositoryBox
@@ -37,6 +38,7 @@ function RepositoryList({ data }) {
                 createDate={item[0]["cration_date"]}
                 updateDate={item[0]["modification_date"]}
                 description={item[0]["description"]}
+                language={item[0]["language"]}
                 isMirrored
               />
             );

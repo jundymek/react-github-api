@@ -7,6 +7,9 @@ const ContentLeft = styled.div`
   background: rgba(#000, 0.2);
   width: 100%;
   transition: transform 0.3s ease-in;
+  @media (max-width: 500px) {
+    transform: translateX(0);
+  }
 `;
 
 const Photo = styled.div`
@@ -25,22 +28,26 @@ const Photo = styled.div`
 const StyledSection = styled.section`
   display: flex;
   max-width: 600px;
-  height: 400px;
+  min-height: 400px;
   width: 90%;
-  margin: 40px auto 0 auto;
+  margin: 40px 0 0 0;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
   border-radius: 6px;
   overflow: hidden;
   background: #fff;
-  &:hover ${ContentLeft} {
-    transform: translateX(0);
+  @media (min-width: 500px) {
+    &:hover ${ContentLeft} {
+      transform: translateX(0);
+    }
+    &:hover ${Photo} {
+      opacity: 0.9;
+      transform: rotate(10deg) scale(1.3);
+    }
   }
-  &:hover ${Photo} {
-    opacity: 0.9;
-    transform: rotate(10deg) scale(1.3);
-  }
+
   ${props =>
-    props.isMirrored && css`
+    props.isMirrored &&
+    css`
       flex-direction: row-reverse;
       &:hover ${ContentLeft} {
         transform: translateX(20px);
@@ -78,6 +85,15 @@ const Title = styled.h2`
   word-wrap: break-word;
 `;
 
+const SubTitle = styled.h3`
+  margin-top: 20px;
+  padding: 0;
+  font-size: 1rem;
+  color: #a2a2a2;
+  text-transform: uppercase;
+  word-wrap: break-word;
+`;
+
 const Description = styled.p`
   margin-top: 40px;
   position: relative;
@@ -93,9 +109,9 @@ const Description = styled.p`
 
 const Created = styled.p``;
 
-const GithubLink = styled.p`
+const GithubLink = styled.a`
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   color: #7bd338;
   align-self: flex-end;
   justify-self: flex-end;
@@ -124,8 +140,7 @@ class RepositoryBox extends React.Component {
     super(props);
   }
   render() {
-    const { title, url, createDate, updateDate, description, isMirrored } = this.props;
-    console.log(this.props.isMirrored);
+    const { title, url, createDate, updateDate, description, language, isMirrored } = this.props;
     return (
       <StyledSection isMirrored={isMirrored}>
         <LeftSection isMirrored={isMirrored}>
@@ -137,10 +152,9 @@ class RepositoryBox extends React.Component {
         </LeftSection>
         <RightSection isMirrored={isMirrored}>
           <Title>{title}</Title>
+          <SubTitle>{language ? `Written mostly in: ${language}` : ''}</SubTitle>
           <Description>{description ? description : "No desciption for this project"}</Description>
-          <GithubLink>
-            <a href={url}>Read more</a>
-          </GithubLink>
+          <GithubLink href={url}>Read more></GithubLink>
         </RightSection>
       </StyledSection>
     );
