@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import img from "../img/code.jpg";
 
 const ContentLeft = styled.div`
-  transform: translateX(-100%);
+  transform: translateX(-150%);
   background: rgba(#000, 0.2);
   width: 100%;
   transition: transform 0.3s ease-in;
@@ -25,7 +25,7 @@ const Photo = styled.div`
 const StyledSection = styled.section`
   display: flex;
   max-width: 600px;
-  height: 300px;
+  height: 400px;
   width: 90%;
   margin: 40px auto 0 auto;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);

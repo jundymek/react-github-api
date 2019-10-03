@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap&subset=latin-ext');
 
 html {
   box-sizing: border-box;
@@ -16,7 +16,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Roboto';
+  font-family: 'Poppins';
 }
 
 code {
