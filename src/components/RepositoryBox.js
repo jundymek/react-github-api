@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import img from "../img/code.jpg";
 
 const ContentLeft = styled.div`
@@ -24,8 +24,8 @@ const Photo = styled.div`
 
 const StyledSection = styled.section`
   display: flex;
-  max-width: 800px;
-  min-height: 300px;
+  max-width: 600px;
+  height: 300px;
   width: 90%;
   margin: 40px auto 0 auto;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
@@ -39,6 +39,13 @@ const StyledSection = styled.section`
     opacity: 0.9;
     transform: rotate(10deg) scale(1.3);
   }
+  ${props =>
+    props.isMirrored && css`
+      flex-direction: row-reverse;
+      &:hover ${ContentLeft} {
+        transform: translateX(20px);
+      }
+    `}
 `;
 
 const LeftSection = styled.div`
@@ -47,6 +54,11 @@ const LeftSection = styled.div`
   padding: 20px;
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
   position: relative;
+  ${props =>
+    props.isMirrored &&
+    css`
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+    `}
 `;
 
 const RightSection = styled.div`
@@ -109,25 +121,26 @@ const GithubLink = styled.p`
 
 class RepositoryBox extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   render() {
-    const {title, url, createDate, updateDate, description} = this.props;
+    const { title, url, createDate, updateDate, description, isMirrored } = this.props;
+    console.log(this.props.isMirrored);
     return (
-      <StyledSection>
-        <LeftSection>
+      <StyledSection isMirrored={isMirrored}>
+        <LeftSection isMirrored={isMirrored}>
           <Photo />
           <ContentLeft>
             <Created>Created 📅: {createDate}</Created>
             <Created>Updated 📅: {updateDate}</Created>
           </ContentLeft>
         </LeftSection>
-        <RightSection>
+        <RightSection isMirrored={isMirrored}>
           <Title>{title}</Title>
-          <Description>
-            {description ? description : "No desciption for this project"}
-          </Description>
-          <GithubLink><a href={url}>Read more</a></GithubLink>
+          <Description>{description ? description : "No desciption for this project"}</Description>
+          <GithubLink>
+            <a href={url}>Read more</a>
+          </GithubLink>
         </RightSection>
       </StyledSection>
     );

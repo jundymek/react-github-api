@@ -6,6 +6,7 @@ const StyledInput = styled.input`
     width: 20rem;
     padding: .5rem;
     border: none;
+    border-radius: 2px;
 `
 const StyledForm = styled.form`
     display: flex;
@@ -19,6 +20,7 @@ const StyledButton = styled.button`
     background-color: gray;
     color: ${colors[Math.floor(Math.random() * colors.length)]};
     width: 5rem;
+    border-radius: 2px;
 `
 class SearchBar extends React.Component {
   constructor(props) {
