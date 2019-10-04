@@ -1,7 +1,7 @@
 import React from "react";
-import "./App.css";
 import MainHeader from "./components/MainHeader";
 import RepositoryList from "./components/RepositoryList";
+import Footer from "./components/Footer";
 import styled from "styled-components";
 
 const MainWrapper = styled.main`
@@ -9,13 +9,14 @@ const MainWrapper = styled.main`
   flex-direction: column;
   max-width: 1021px;
   width: 100%;
-  min-height: 100vh;
+  min-height: 90vh;
   margin: 0% auto;
   background: #f2f2f2;
+  z-index: -1;
 `;
 
-const Arrow =  styled.a`
-  display: ${props => props.isScrollArrowVisible ? 'block' : 'none'};
+const Arrow = styled.a`
+  display: ${props => (props.isScrollArrowVisible ? "block" : "none")};
   position: fixed;
   bottom: 30px;
   right: 20px;
@@ -23,13 +24,13 @@ const Arrow =  styled.a`
   height: 20px;
   position: fixed;
   &::after {
-    color: transparent;  
+    color: transparent;
     text-shadow: 0 0 0 #000;
     position: absolute;
     font-size: 40px;
-    content: '🔝'
+    content: "🔝";
   }
-`
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -39,10 +40,10 @@ class App extends React.Component {
       scrollArrowShow: false
     };
   }
-  
+
   componentDidMount = () => {
     window.addEventListener("scroll", this.handleScroll);
-  }
+  };
 
   handleSearchBarDataChange = value => {
     this.setState({ repositoryData: value });
@@ -50,23 +51,23 @@ class App extends React.Component {
 
   handleScroll = () => {
     if (window.scrollY > 0 && !this.state.scrollArrowShow) {
-      this.setState({scrollArrowShow: true})
+      this.setState({ scrollArrowShow: true });
     }
     if (window.scrollY === 0) {
-      this.setState({scrollArrowShow: false})
+      this.setState({ scrollArrowShow: false });
     }
-  }
-
- 
+  };
 
   render() {
     return (
       <MainWrapper>
-        <MainHeader 
-          isData={this.state.repositoryData ? true : null} 
-          handleSearchBarDataChange={this.handleSearchBarDataChange} />
+        <MainHeader
+          isData={this.state.repositoryData ? true : null}
+          handleSearchBarDataChange={this.handleSearchBarDataChange}
+        />
         <RepositoryList data={this.state.repositoryData} />
-        <Arrow isScrollArrowVisible={this.state.scrollArrowShow} href="#"/>
+        <Arrow isScrollArrowVisible={this.state.scrollArrowShow} href="#" />
+        <Footer />
       </MainWrapper>
     );
   }
