@@ -14,17 +14,50 @@ const MainWrapper = styled.main`
   background: #f2f2f2;
 `;
 
+const Arrow =  styled.a`
+  display: ${props => props.isScrollArrowVisible ? 'block' : 'none'};
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  &::after {
+    color: transparent;  
+    text-shadow: 0 0 0 #000;
+    position: absolute;
+    font-size: 40px;
+    content: '🔝'
+  }
+`
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repositoryData: null
+      repositoryData: null,
+      scrollArrowShow: false
     };
+  }
+  
+  componentDidMount = () => {
+    window.addEventListener("scroll", this.handleScroll);
   }
 
   handleSearchBarDataChange = value => {
     this.setState({ repositoryData: value });
   };
+
+  handleScroll = () => {
+    if (window.scrollY > 0 && !this.state.scrollArrowShow) {
+      this.setState({scrollArrowShow: true})
+    }
+    if (window.scrollY === 0) {
+      this.setState({scrollArrowShow: false})
+    }
+  }
+
+ 
 
   render() {
     return (
@@ -33,6 +66,7 @@ class App extends React.Component {
           isData={this.state.repositoryData ? true : null} 
           handleSearchBarDataChange={this.handleSearchBarDataChange} />
         <RepositoryList data={this.state.repositoryData} />
+        <Arrow isScrollArrowVisible={this.state.scrollArrowShow} href="#"/>
       </MainWrapper>
     );
   }

@@ -136,9 +136,6 @@ const GithubLink = styled.a`
 `;
 
 class RepositoryBox extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { title, url, createDate, updateDate, description, language, isMirrored } = this.props;
     return (
@@ -146,8 +143,8 @@ class RepositoryBox extends React.Component {
         <LeftSection isMirrored={isMirrored}>
           <Photo />
           <ContentLeft>
-            <Created>Created 📅: {createDate}</Created>
-            <Created>Updated 📅: {updateDate}</Created>
+            <Created>Created <span role="img" aria-label="calendar icon">📅</span>: {createDate}</Created>
+            <Created>Updated <span role="img" aria-label="calendar icon">📅</span>: {updateDate}</Created>
           </ContentLeft>
         </LeftSection>
         <RightSection isMirrored={isMirrored}>
