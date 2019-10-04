@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import img from "../img/code.jpg";
 
 const ContentLeft = styled.div`
   transform: translateX(-150%);
@@ -13,7 +12,7 @@ const ContentLeft = styled.div`
 `;
 
 const Photo = styled.div`
-  background-image: url(${img});
+  background-image: url(${props => props.img});
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -137,11 +136,12 @@ const GithubLink = styled.a`
 
 class RepositoryBox extends React.Component {
   render() {
-    const { title, url, createDate, updateDate, description, language, isMirrored } = this.props;
+    const { title, url, createDate, updateDate, description, language, isMirrored, img } = this.props;
+    console.log(img)
     return (
       <StyledSection isMirrored={isMirrored}>
         <LeftSection isMirrored={isMirrored}>
-          <Photo />
+          <Photo img={img}/>
           <ContentLeft>
             <Created>Created <span role="img" aria-label="calendar icon">📅</span>: {createDate}</Created>
             <Created>Updated <span role="img" aria-label="calendar icon">📅</span>: {updateDate}</Created>

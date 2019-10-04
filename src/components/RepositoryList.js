@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
 import uuid from "uuid";
+import img from "../img/code.jpg";
+import img1 from "../img/code1.jpg";
+import img2 from "../img/code2.jpg";
+import img3 from "../img/computer.jpg";
 
 const StyledSection = styled.section`
   display: flex;
@@ -27,6 +31,8 @@ const Paragraph = styled.p`
   }
 `;
 
+const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
+
 function RepositoryList({ data }) {
   return (
     <StyledSection>
@@ -42,6 +48,7 @@ function RepositoryList({ data }) {
             return index % 2 === 0 ? (
               <RepositoryBox
                 key={uuid.v4()}
+                img={images[Math.floor(Math.random() * images.length)]}
                 title={item[0]["title"]}
                 url={item[0]["url"]}
                 createDate={item[0]["cration_date"]}
@@ -52,6 +59,7 @@ function RepositoryList({ data }) {
             ) : (
               <RepositoryBox
                 key={uuid.v4()}
+                img={images[Math.floor(Math.random() * images.length)]}
                 title={item[0]["title"]}
                 url={item[0]["url"]}
                 createDate={item[0]["cration_date"]}
