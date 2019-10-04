@@ -5,7 +5,7 @@ const StyledInput = styled.input`
   height: 2.5rem;
   width: 20rem;
   padding: 0.5rem;
-  border: none;
+  border: 1px solid #000;
   border-radius: 2px;
 `;
 const StyledForm = styled.form`
@@ -19,10 +19,16 @@ const StyledButton = styled.button`
   height: 2.5rem;
   padding: 0.5rem;
   border: none;
-  background-color: gray;
-  color: ${colors[Math.floor(Math.random() * colors.length)]};
+  background-color: #000;
+  border: 1px solid #fff;
+  color: #fff;
+  /* color: ${colors[Math.floor(Math.random() * colors.length)]}; */
   width: 5rem;
   border-radius: 2px;
+  transition: transform 0.3s ease-in;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 class SearchBar extends React.Component {
   constructor(props) {
@@ -82,8 +88,8 @@ class SearchBar extends React.Component {
   render() {
     return (
       <StyledForm onSubmit={this.handleSubmit}>
-        <StyledInput type="text" placeholder="Szukaj repo" onChange={this.handleInputChange} />
-        <StyledButton>Szukaj</StyledButton>
+        <StyledInput type="text" placeholder="Search" onChange={this.handleInputChange} />
+        <StyledButton>Search</StyledButton>
       </StyledForm>
     );
   }

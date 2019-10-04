@@ -14,12 +14,28 @@ const StyledH2 = styled.h2`
   text-align: center;
 `;
 
+const Paragraph = styled.p`
+  width: 35%;
+  align-self: flex-end;
+  text-align: justify;
+  padding-right: 30px;
+  margin-top: -100px;
+  @media (max-width: 400px) {
+    font-size: 14px;
+    margin-top: -80px;
+  }
+`;
+
 function RepositoryList({ data }) {
   return (
     <StyledSection>
-      <RepositoryBox />
-      <RepositoryBox isMirrored />
-      {data ? <StyledH2>Repositories</StyledH2> : <StyledH2>No data</StyledH2>}
+      {data ? (
+        <StyledH2>Repositories</StyledH2>
+      ) : (
+        <Paragraph>
+          Please fill above form to get data from GitHub API. List all repositories of specified user.
+        </Paragraph>
+      )}
       {data
         ? data.map((item, index) => {
             return index % 2 === 0 ? (

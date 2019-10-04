@@ -7,14 +7,17 @@ const StyledHeader = styled.header`
   background-color: #ccc;
   padding: 40px 20px;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: -50px;
-  height: 400px;
+  transition: min-height 1s ease-out; 
+  min-height: ${props => props.isData ? '400px': '100vh'};
   clip-path: polygon(0 0, 100% 0, 100% 74%, 0 99%);
   background: #000;
   color: #fff;
   @media (max-width: 768px) {
+    min-height: ${props => props.isData ? '400px': '90vh'};
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -35,9 +38,10 @@ const StyledH1 = styled.h1`
 
 function MainHeader(props) {
   const { handleSearchBarDataChange } = props;
+  console.log(props.isData)
   return (
-    <StyledHeader>
-      <StyledH1>Moje repozytoria githuba - React</StyledH1>
+    <StyledHeader isData={props.isData}>
+      <StyledH1>Github repos - API</StyledH1>
       <SearchBar handleSearchBarDataChange={handleSearchBarDataChange} />
     </StyledHeader>
   );

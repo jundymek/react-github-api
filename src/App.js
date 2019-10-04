@@ -4,15 +4,15 @@ import MainHeader from "./components/MainHeader";
 import RepositoryList from "./components/RepositoryList";
 import styled from "styled-components";
 
-
 const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
-  max-width:  1021px;
+  max-width: 1021px;
   width: 100%;
-  margin: 0 auto;
+  min-height: 100vh;
+  margin: 0% auto;
   background: #f2f2f2;
-`
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -22,14 +22,16 @@ class App extends React.Component {
     };
   }
 
-  handleSearchBarDataChange = (value) => {
+  handleSearchBarDataChange = value => {
     this.setState({ repositoryData: value });
   };
 
   render() {
     return (
       <MainWrapper>
-        <MainHeader handleSearchBarDataChange={this.handleSearchBarDataChange}/>
+        <MainHeader 
+          isData={this.state.repositoryData ? true : null} 
+          handleSearchBarDataChange={this.handleSearchBarDataChange} />
         <RepositoryList data={this.state.repositoryData} />
       </MainWrapper>
     );
