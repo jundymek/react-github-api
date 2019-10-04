@@ -43,13 +43,16 @@ const StyledSection = styled.section`
       transform: rotate(10deg) scale(1.3);
     }
   }
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+  }
 
   ${props =>
     props.isMirrored &&
     css`
       flex-direction: row-reverse;
       &:hover ${ContentLeft} {
-        transform: translateX(20px);
+        transform: translateX(0px);
       }
     `}
 `;
@@ -65,6 +68,10 @@ const LeftSection = styled.div`
     css`
       clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
     `}
+  @media (max-width: 500px) {
+    width: 100%;
+    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 100%);
+  }
 `;
 
 const RightSection = styled.div`
@@ -73,6 +80,9 @@ const RightSection = styled.div`
   width: 60%;
   padding: 30px;
   position: relative;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h2`
@@ -137,19 +147,31 @@ const GithubLink = styled.a`
 class RepositoryBox extends React.Component {
   render() {
     const { title, url, createDate, updateDate, description, language, isMirrored, img } = this.props;
-    console.log(img)
+    console.log(img);
     return (
       <StyledSection isMirrored={isMirrored}>
         <LeftSection isMirrored={isMirrored}>
-          <Photo img={img}/>
+          <Photo img={img} />
           <ContentLeft>
-            <Created>Created <span role="img" aria-label="calendar icon">📅</span>: {createDate}</Created>
-            <Created>Updated <span role="img" aria-label="calendar icon">📅</span>: {updateDate}</Created>
+            <Created>
+              Created{" "}
+              <span role="img" aria-label="calendar icon">
+                📅
+              </span>
+              : {createDate}
+            </Created>
+            <Created>
+              Updated{" "}
+              <span role="img" aria-label="calendar icon">
+                📅
+              </span>
+              : {updateDate}
+            </Created>
           </ContentLeft>
         </LeftSection>
         <RightSection isMirrored={isMirrored}>
           <Title>{title}</Title>
-          <SubTitle>{language ? `Written mostly in: ${language}` : ''}</SubTitle>
+          <SubTitle>{language ? `Written mostly in: ${language}` : ""}</SubTitle>
           <Description>{description ? description : "No desciption for this project"}</Description>
           <GithubLink href={url}>Read more></GithubLink>
         </RightSection>
