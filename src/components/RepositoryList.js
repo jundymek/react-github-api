@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
+import uuid from "uuid";
 
 const StyledSection = styled.section`
   display: flex;
@@ -40,6 +41,7 @@ function RepositoryList({ data }) {
         ? data.map((item, index) => {
             return index % 2 === 0 ? (
               <RepositoryBox
+                key={uuid.v4()}
                 title={item[0]["title"]}
                 url={item[0]["url"]}
                 createDate={item[0]["cration_date"]}
@@ -49,6 +51,7 @@ function RepositoryList({ data }) {
               />
             ) : (
               <RepositoryBox
+                key={uuid.v4()}
                 title={item[0]["title"]}
                 url={item[0]["url"]}
                 createDate={item[0]["cration_date"]}
