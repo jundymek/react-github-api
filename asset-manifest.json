@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-github/static/css/main.fdc8a987.chunk.css",
+    "main.js": "/react-github/static/js/main.73f33458.chunk.js",
+    "main.js.map": "/react-github/static/js/main.73f33458.chunk.js.map",
+    "runtime-main.js": "/react-github/static/js/runtime-main.9d59146e.js",
+    "runtime-main.js.map": "/react-github/static/js/runtime-main.9d59146e.js.map",
+    "static/js/2.aa976d61.chunk.js": "/react-github/static/js/2.aa976d61.chunk.js",
+    "static/js/2.aa976d61.chunk.js.map": "/react-github/static/js/2.aa976d61.chunk.js.map",
+    "index.html": "/react-github/index.html",
+    "precache-manifest.98e6ffcc8541fe94511a3bebab55df74.js": "/react-github/precache-manifest.98e6ffcc8541fe94511a3bebab55df74.js",
+    "service-worker.js": "/react-github/service-worker.js",
+    "static/css/main.fdc8a987.chunk.css.map": "/react-github/static/css/main.fdc8a987.chunk.css.map",
+    "static/media/code.jpg": "/react-github/static/media/code.5399464e.jpg",
+    "static/media/code1.jpg": "/react-github/static/media/code1.30561e1c.jpg",
+    "static/media/code2.jpg": "/react-github/static/media/code2.a7f77978.jpg",
+    "static/media/computer.jpg": "/react-github/static/media/computer.121d63bb.jpg",
+    "static/media/github_icon_small.png": "/react-github/static/media/github_icon_small.cec17e16.png"
+  }
+}
