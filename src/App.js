@@ -50,7 +50,7 @@ class App extends React.Component {
   };
 
   handleScroll = () => {
-    if (window.scrollY > 0 && !this.state.scrollArrowShow) {
+    if (window.scrollY > 0 && !this.state.scrollArrowShow && this.state.repositoryData) {
       this.setState({ scrollArrowShow: true });
     }
     if (window.scrollY === 0) {

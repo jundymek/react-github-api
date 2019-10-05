@@ -34,46 +34,49 @@ const Paragraph = styled.p`
 
 const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
-function RepositoryList({ data }) {
-  return (
-    <StyledSection>
-      {data ? (
-        <StyledH2>Repositories</StyledH2>
-      ) : (
-        <Paragraph>
-          Please fill above form to get data from GitHub API. List all repositories of specified user.
-        </Paragraph>
-      )}
-      {data
-        ? data.map((item, index) => {
-            return index % 2 === 0 ? (
-              <RepositoryBox
-                key={uuid.v4()}
-                img={images[Math.floor(Math.random() * images.length)]}
-                title={item[0]["title"]}
-                url={item[0]["url"]}
-                createDate={item[0]["cration_date"]}
-                updateDate={item[0]["modification_date"]}
-                description={item[0]["description"]}
-                language={item[0]["language"]}
-              />
-            ) : (
-              <RepositoryBox
-                key={uuid.v4()}
-                img={images[Math.floor(Math.random() * images.length)]}
-                title={item[0]["title"]}
-                url={item[0]["url"]}
-                createDate={item[0]["cration_date"]}
-                updateDate={item[0]["modification_date"]}
-                description={item[0]["description"]}
-                language={item[0]["language"]}
-                isMirrored
-              />
-            );
-          })
-        : ""}
-    </StyledSection>
-  );
+class RepositoryList extends React.PureComponent {
+  render() {
+    const { data } = this.props;
+    return (
+      <StyledSection>
+        {data ? (
+          <StyledH2>Repositories</StyledH2>
+        ) : (
+          <Paragraph>
+            Please fill above form to get data from GitHub API. List all repositories of specified user.
+          </Paragraph>
+        )}
+        {data
+          ? data.map((item, index) => {
+              return index % 2 === 0 ? (
+                <RepositoryBox
+                  key={uuid.v4()}
+                  img={images[Math.floor(Math.random() * images.length)]}
+                  title={item[0]["title"]}
+                  url={item[0]["url"]}
+                  createDate={item[0]["cration_date"]}
+                  updateDate={item[0]["modification_date"]}
+                  description={item[0]["description"]}
+                  language={item[0]["language"]}
+                />
+              ) : (
+                <RepositoryBox
+                  key={uuid.v4()}
+                  img={images[Math.floor(Math.random() * images.length)]}
+                  title={item[0]["title"]}
+                  url={item[0]["url"]}
+                  createDate={item[0]["cration_date"]}
+                  updateDate={item[0]["modification_date"]}
+                  description={item[0]["description"]}
+                  language={item[0]["language"]}
+                  isMirrored
+                />
+              );
+            })
+          : ""}
+      </StyledSection>
+    );
+  }
 }
 
 export default RepositoryList;
