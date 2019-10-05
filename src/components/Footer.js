@@ -10,6 +10,7 @@ const StyledFooter = styled.footer`
   justify-content: center;
   background: black;
   color: #fff;
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
 `
 const Paragraph = styled.p`
     justify-self: flex-start;

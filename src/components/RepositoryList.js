@@ -14,6 +14,7 @@ const StyledSection = styled.section`
   flex-direction: column;
   margin-bottom: 50px;
 `;
+
 const StyledH2 = styled.h2`
   font-weight: 700;
   text-align: center;
