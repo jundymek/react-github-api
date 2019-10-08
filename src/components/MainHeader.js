@@ -38,7 +38,6 @@ const StyledH1 = styled.h1`
 
 function MainHeader(props) {
   const { handleSearchBarDataChange } = props;
-  console.log(props.isData)
   return (
     <StyledHeader isData={props.isData}>
       <StyledH1>Github repos - API</StyledH1>

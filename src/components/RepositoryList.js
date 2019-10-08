@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
-import uuid from "uuid";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
 import img2 from "../img/code2.jpg";
@@ -50,7 +49,7 @@ class RepositoryList extends React.PureComponent {
           ? data.map((item, index) => {
               return index % 2 === 0 ? (
                 <RepositoryBox
-                  key={uuid.v4()}
+                  key={item[0]["id"]}
                   img={images[Math.floor(Math.random() * images.length)]}
                   title={item[0]["title"]}
                   url={item[0]["url"]}
@@ -61,7 +60,7 @@ class RepositoryList extends React.PureComponent {
                 />
               ) : (
                 <RepositoryBox
-                  key={uuid.v4()}
+                  key={item[0]["id"]}
                   img={images[Math.floor(Math.random() * images.length)]}
                   title={item[0]["title"]}
                   url={item[0]["url"]}

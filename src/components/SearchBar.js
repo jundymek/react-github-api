@@ -59,7 +59,6 @@ class SearchBar extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    console.log(data);
   };
 
   getWantedData = data => {
@@ -70,7 +69,8 @@ class SearchBar extends React.Component {
         cration_date: item.created_at.slice(0, 10),
         modification_date: item.updated_at.slice(0, 10),
         description: item.description,
-        language: item.language
+        language: item.language,
+        key: item.id
       }
     ]);
     console.log(dataObjects);

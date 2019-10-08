@@ -147,7 +147,6 @@ const GithubLink = styled.a`
 class RepositoryBox extends React.Component {
   render() {
     const { title, url, createDate, updateDate, description, language, isMirrored, img } = this.props;
-    console.log(img);
     return (
       <StyledSection isMirrored={isMirrored}>
         <LeftSection isMirrored={isMirrored}>
