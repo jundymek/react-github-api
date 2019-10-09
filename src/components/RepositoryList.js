@@ -34,6 +34,10 @@ const Paragraph = styled.p`
 const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
 class RepositoryList extends React.PureComponent {
+
+  componentDidUpdate() {
+    console.log('updated')
+  }
   render() {
     const { data } = this.props;
     return (
