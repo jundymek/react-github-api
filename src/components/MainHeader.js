@@ -37,11 +37,11 @@ const StyledH1 = styled.h1`
 `;
 
 function MainHeader(props) {
-  const { handleSearchBarDataChange } = props;
+  const { handleSearchBarDataChange, handleTechnologiesToSortChange } = props;
   return (
     <StyledHeader isData={props.isData}>
       <StyledH1>Github repos - API</StyledH1>
-      <SearchBar handleSearchBarDataChange={handleSearchBarDataChange} />
+      <SearchBar handleSearchBarDataChange={handleSearchBarDataChange} handleTechnologiesToSortChange={handleTechnologiesToSortChange}/>
     </StyledHeader>
   );
 }

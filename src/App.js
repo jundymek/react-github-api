@@ -32,11 +32,24 @@ const Arrow = styled.a`
   }
 `;
 
+const Paragraph = styled.p`
+  width: 35%;
+  align-self: flex-end;
+  text-align: justify;
+  padding-right: 30px;
+  margin-top: -100px;
+  @media (max-width: 400px) {
+    font-size: 14px;
+    margin-top: -80px;
+  }
+`;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       repositoryData: null,
+      technologiesToSort: null,
       scrollArrowShow: false
     };
   }
@@ -47,6 +60,10 @@ class App extends React.Component {
 
   handleSearchBarDataChange = value => {
     this.setState({ repositoryData: value });
+  };
+
+  handleTechnologiesToSortChange = value => {
+    this.setState({ technologiesToSort: value });
   };
 
   handleScroll = () => {
@@ -63,9 +80,16 @@ class App extends React.Component {
       <MainWrapper>
         <MainHeader
           isData={this.state.repositoryData ? true : null}
+          handleTechnologiesToSortChange={this.handleTechnologiesToSortChange}
           handleSearchBarDataChange={this.handleSearchBarDataChange}
         />
-        <RepositoryList data={this.state.repositoryData} />
+        {this.state.repositoryData ? (
+          <RepositoryList data={this.state.repositoryData} technologiesToSort={this.state.technologiesToSort}/>
+        ) : (
+          <Paragraph>
+            Please fill above form to get data from GitHub API. List all repositories of specified user.
+          </Paragraph>
+        )}
         <Arrow isScrollArrowVisible={this.state.scrollArrowShow} href="#" />
         <Footer />
       </MainWrapper>

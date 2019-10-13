@@ -53,12 +53,22 @@ class SearchBar extends React.Component {
           console.log(resp);
           const repos = resp.map(item => item.html_url);
           console.log(repos);
+          console.log(resp);
           this.getWantedData(resp);
         }
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  getTechnologiesToSort = (data) => {
+    const technologies = [];
+    data.map(item => {
+      technologies.push(item[0].language !== null ? item[0].language : "Other");
+    });
+    console.log("TECXHNo", technologies)
+    return [...new Set(technologies)];
   };
 
   getWantedData = data => {
@@ -74,11 +84,14 @@ class SearchBar extends React.Component {
       }
     ]);
     console.log(dataObjects);
+    this.props.handleTechnologiesToSortChange(this.getTechnologiesToSort(dataObjects))
     this.props.handleSearchBarDataChange(dataObjects);
   };
 
+  
+
   handleSubmit = e => {
-    this.props.handleSearchBarDataChange("");
+    // this.props.handleSearchBarDataChange("");
     e.preventDefault();
     const data = this.state.inputValue;
     console.log(data);
