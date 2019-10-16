@@ -144,39 +144,37 @@ const GithubLink = styled.a`
   }
 `;
 
-class RepositoryBox extends React.Component {
-  render() {
-    const { title, url, createDate, updateDate, description, language, isMirrored, img } = this.props;
-    return (
-      <StyledSection isMirrored={isMirrored}>
-        <LeftSection isMirrored={isMirrored}>
-          <Photo img={img} />
-          <ContentLeft>
-            <Created>
-              Created{" "}
-              <span role="img" aria-label="calendar icon">
-                📅
-              </span>
-              : {createDate}
-            </Created>
-            <Created>
-              Updated{" "}
-              <span role="img" aria-label="calendar icon">
-                📅
-              </span>
-              : {updateDate}
-            </Created>
-          </ContentLeft>
-        </LeftSection>
-        <RightSection isMirrored={isMirrored}>
-          <Title>{title}</Title>
-          <SubTitle>{language ? `Written mostly in: ${language}` : ""}</SubTitle>
-          <Description>{description ? description : "No desciption for this project"}</Description>
-          <GithubLink href={url}>Read more></GithubLink>
-        </RightSection>
-      </StyledSection>
-    );
-  }
+function RepositoryBox(props) {
+  const { title, url, createDate, updateDate, description, language, isMirrored, img } = props;
+  return (
+    <StyledSection isMirrored={isMirrored}>
+      <LeftSection isMirrored={isMirrored}>
+        <Photo img={img} />
+        <ContentLeft>
+          <Created>
+            Created{" "}
+            <span role="img" aria-label="calendar icon">
+              📅
+            </span>
+            : {createDate}
+          </Created>
+          <Created>
+            Updated{" "}
+            <span role="img" aria-label="calendar icon">
+              📅
+            </span>
+            : {updateDate}
+          </Created>
+        </ContentLeft>
+      </LeftSection>
+      <RightSection isMirrored={isMirrored}>
+        <Title>{title}</Title>
+        <SubTitle>{language ? `Written mostly in: ${language}` : ""}</SubTitle>
+        <Description>{description ? description : "No desciption for this project"}</Description>
+        <GithubLink href={url}>Read more></GithubLink>
+      </RightSection>
+    </StyledSection>
+  );
 }
 
 export default RepositoryBox;
