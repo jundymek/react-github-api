@@ -1,50 +1,33 @@
 import React from "react";
-import styled from "styled-components";
 
-class FilterRepositoryList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: "All",
-            inputSearch: ""
-        };
-      }
+function FilterRepositoryList({ data, options, handleFilterRepositoriesToShow }) {
+  const handleChangeSelectedValue = e => {
+    getStringifyFilteredData(e.target.value);
+  };
 
-  handleChangeSelectedValue = (e) => {
-    //   e.preventDefault()
-    //   this.setState({
-    //       selected: e.target.value
-    //   })
-    //   console.log(e.target.value)
-      this.getStringifyFilteredData(e.target.value)
-  }
-
-  getStringifyFilteredData = value => {
-    console.log("PROPS data ", this.props.data)
+  const getStringifyFilteredData = value => {
+    console.log("PROPS data ", data);
     return value !== "All"
-      ? this.props.handleFilterRepositoriesToShow(
-          this.props.data.filter(item => {
+      ? handleFilterRepositoriesToShow(
+          data.filter(item => {
             return item[0].language === value;
           })
         )
-      : this.props.handleFilterRepositoriesToShow(this.props.data);
+      : handleFilterRepositoriesToShow(data);
   };
 
-  render() {
-    const { options, data } = this.props;
-    return (
-      <form action="#">
-        <select class="select" id="language" onClick={this.handleChangeSelectedValue}>
-          <option class="option" value="all">
-            All
-          </option>
-          {options.map(item => {
-            return <option value={item}>{item}</option>;
-          })}
-        </select>
-      </form>
-    );
-  }
+  return (
+    <form action="#">
+      <select class="select" id="language" onClick={handleChangeSelectedValue}>
+        <option class="option" value="all">
+          All
+        </option>
+        {options.map(item => {
+          return <option value={item}>{item}</option>;
+        })}
+      </select>
+    </form>
+  );
 }
 
 export default FilterRepositoryList;
