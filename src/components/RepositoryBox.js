@@ -144,8 +144,7 @@ const GithubLink = styled.a`
   }
 `;
 
-function RepositoryBox(props) {
-  const { title, url, createDate, updateDate, description, language, isMirrored, img } = props;
+function RepositoryBox({ title, url, createDate, updateDate, description, language, isMirrored, img }) {
   return (
     <StyledSection isMirrored={isMirrored}>
       <LeftSection isMirrored={isMirrored}>

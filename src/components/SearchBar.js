@@ -57,6 +57,7 @@ function SearchBar(props) {
     const technologies = [];
     data.map(item => {
       technologies.push(item[0].language !== null ? item[0].language : "Other");
+      return technologies;
     });
     console.log("TECXHNo", technologies);
     return [...new Set(technologies)];
