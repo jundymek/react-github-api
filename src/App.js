@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MainHeader from "./components/MainHeader";
 import RepositoryList from "./components/RepositoryList";
 import Footer from "./components/Footer";
@@ -49,21 +49,26 @@ function App() {
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
 
+  const handleScroll = useCallback(
+    () => {
+      if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
+        setScrollArrowShow(true);
+      }
+      if (window.scrollY <= 0) {
+        setScrollArrowShow(false);
+      }
+    },
+    [repositoryData, scrollArrowShow],
+  )
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+  }, [handleScroll]);
 
-  const handleScroll = () => {
-    if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
-      setScrollArrowShow(true);
-    }
-    if (window.scrollY <= 0) {
-      setScrollArrowShow(false);
-    }
-  };
+  
 
   return (
     <MainWrapper>

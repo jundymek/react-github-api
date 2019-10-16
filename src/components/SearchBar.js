@@ -71,7 +71,7 @@ function SearchBar(props) {
         modification_date: item.updated_at.slice(0, 10),
         description: item.description,
         language: item.language,
-        key: item.id
+        key: item.id,
       }
     ]);
     console.log(dataObjects);
