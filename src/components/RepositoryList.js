@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
-import FilterRepositoryList from "./FilterRepositoryList";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
 import img2 from "../img/code2.jpg";
@@ -22,76 +21,74 @@ const StyledH2 = styled.h2`
 
 const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
-class RepositoryList extends React.PureComponent {
-  state = {
-    data: this.props.data,
-    technologies: this.props.technologiesToSort
-  };
+function RepositoryList(props) {
+  const [data, setData] = useState(props.data);
+  const technologies = props.technologiesToSort;
 
-  handleChangeSelectedValue = e => {
+  const handleChangeSelectedValue = e => {
     console.log(e.target.value);
-    this.setState({
-      data: this.getStringifyFilteredData(e.target.value)
-    });
+    setData(getStringifyFilteredData(e.target.value));
   };
 
-  getStringifyFilteredData = value => {
+  const getStringifyFilteredData = value => {
     if (value === "all") {
-      return this.props.data;
+      return props.data;
     } else if (value === "Other") {
-      return this.props.data.filter(item => {
+      return props.data.filter(item => {
         return item[0].language === null;
       });
     } else {
-      return this.props.data.filter(item => {
+      return props.data.filter(item => {
         return item[0].language === value;
       });
     }
   };
 
-  render() {
-    return (
-      <StyledSection>
-        <StyledH2>Repositories</StyledH2>
-        <form>
-          <select class="select" id="language" onChange={e => this.handleChangeSelectedValue(e)}>
-            <option class="option" value="all">
-              All
-            </option>
-            {this.state.technologies.map(item => {
-              return <option value={item}>{item}</option>;
-            })}
-          </select>
-        </form>
-        {this.state.data.map((item, index) => {
-          return index % 2 === 0 ? (
-            <RepositoryBox
-              key={item[0]["id"]}
-              img={images[Math.floor(Math.random() * images.length)]}
-              title={item[0]["title"]}
-              url={item[0]["url"]}
-              createDate={item[0]["cration_date"]}
-              updateDate={item[0]["modification_date"]}
-              description={item[0]["description"]}
-              language={item[0]["language"]}
-            />
-          ) : (
-            <RepositoryBox
-              key={item[0]["id"]}
-              img={images[Math.floor(Math.random() * images.length)]}
-              title={item[0]["title"]}
-              url={item[0]["url"]}
-              createDate={item[0]["cration_date"]}
-              updateDate={item[0]["modification_date"]}
-              description={item[0]["description"]}
-              language={item[0]["language"]}
-              isMirrored
-            />
-          );
-        })}
-      </StyledSection>
-    );
-  }
+  return (
+    <StyledSection>
+      <StyledH2>Repositories</StyledH2>
+      <form>
+        <select id="language" onChange={e => handleChangeSelectedValue(e)}>
+          <option value="all">All</option>
+          {technologies.map((item, index) => {
+            console.log(index);
+            return (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
+      </form>
+      {data.map((item, index) => {
+        console.log(item[0]["key"]);
+        return index % 2 === 0 ? (
+          <RepositoryBox
+            key={item[0]["key"]}
+            img={images[Math.floor(Math.random() * images.length)]}
+            title={item[0]["title"]}
+            url={item[0]["url"]}
+            createDate={item[0]["cration_date"]}
+            updateDate={item[0]["modification_date"]}
+            description={item[0]["description"]}
+            language={item[0]["language"]}
+          />
+        ) : (
+          <RepositoryBox
+            key={item[0]["key"]}
+            img={images[Math.floor(Math.random() * images.length)]}
+            title={item[0]["title"]}
+            url={item[0]["url"]}
+            createDate={item[0]["cration_date"]}
+            updateDate={item[0]["modification_date"]}
+            description={item[0]["description"]}
+            language={item[0]["language"]}
+            isMirrored
+          />
+        );
+      })}
+    </StyledSection>
+  );
 }
 
 export default RepositoryList;
