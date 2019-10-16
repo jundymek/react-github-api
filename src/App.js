@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainHeader from "./components/MainHeader";
 import RepositoryList from "./components/RepositoryList";
 import Footer from "./components/Footer";
@@ -44,57 +44,45 @@ const Paragraph = styled.p`
   }
 `;
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      repositoryData: null,
-      technologiesToSort: null,
-      scrollArrowShow: false
+function App() {
+  const [repositoryData, setRepositoryData] = useState(null);
+  const [technologiesToSort, setTechnologiesToSort] = useState(null);
+  const [scrollArrowShow, setScrollArrowShow] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
-  }
+  });
 
-  componentDidMount = () => {
-    window.addEventListener("scroll", this.handleScroll);
-  };
-
-  handleSearchBarDataChange = value => {
-    this.setState({ repositoryData: value });
-  };
-
-  handleTechnologiesToSortChange = value => {
-    this.setState({ technologiesToSort: value });
-  };
-
-  handleScroll = () => {
-    if (window.scrollY > 0 && !this.state.scrollArrowShow && this.state.repositoryData) {
-      this.setState({ scrollArrowShow: true });
+  const handleScroll = () => {
+    if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
+      setScrollArrowShow(true);
     }
-    if (window.scrollY === 0) {
-      this.setState({ scrollArrowShow: false });
+    if (window.scrollY <= 0) {
+      setScrollArrowShow(false);
     }
   };
 
-  render() {
-    return (
-      <MainWrapper>
-        <MainHeader
-          isData={this.state.repositoryData ? true : null}
-          handleTechnologiesToSortChange={this.handleTechnologiesToSortChange}
-          handleSearchBarDataChange={this.handleSearchBarDataChange}
-        />
-        {this.state.repositoryData ? (
-          <RepositoryList data={this.state.repositoryData} technologiesToSort={this.state.technologiesToSort}/>
-        ) : (
-          <Paragraph>
-            Please fill above form to get data from GitHub API. List all repositories of specified user.
-          </Paragraph>
-        )}
-        <Arrow isScrollArrowVisible={this.state.scrollArrowShow} href="#" />
-        <Footer />
-      </MainWrapper>
-    );
-  }
+  return (
+    <MainWrapper>
+      <MainHeader
+        isData={repositoryData ? true : null}
+        handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
+        handleSearchBarDataChange={value => setRepositoryData(value)}
+      />
+      {repositoryData ? (
+        <RepositoryList data={repositoryData} technologiesToSort={technologiesToSort} />
+      ) : (
+        <Paragraph>
+          Please fill above form to get data from GitHub API. List all repositories of specified user.
+        </Paragraph>
+      )}
+      <Arrow isScrollArrowVisible={scrollArrowShow} href="#" />
+      <Footer />
+    </MainWrapper>
+  );
 }
 
 export default App;

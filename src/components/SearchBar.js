@@ -59,7 +59,6 @@ function SearchBar(props) {
       technologies.push(item[0].language !== null ? item[0].language : "Other");
       return technologies;
     });
-    console.log("TECXHNo", technologies);
     return [...new Set(technologies)];
   };
 

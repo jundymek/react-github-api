@@ -51,7 +51,6 @@ function RepositoryList(props) {
         <select id="language" onChange={e => handleChangeSelectedValue(e)}>
           <option value="all">All</option>
           {technologies.map((item, index) => {
-            console.log(index);
             return (
               <option key={index} value={item}>
                 {item}
@@ -61,7 +60,6 @@ function RepositoryList(props) {
         </select>
       </form>
       {data.map((item, index) => {
-        console.log(item[0]["key"]);
         return index % 2 === 0 ? (
           <RepositoryBox
             key={item[0]["key"]}
