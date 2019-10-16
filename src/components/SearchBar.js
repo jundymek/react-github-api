@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
@@ -30,19 +30,10 @@ const StyledButton = styled.button`
     transform: scale(1.1);
   }
 `;
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: ""
-    };
-  }
+function SearchBar(props) {
+  const [inputValue, setInputValue] = useState("");
 
-  handleInputChange = e => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleFetchData = (e, data) => {
+  const handleFetchData = (e, data) => {
     e.preventDefault();
     fetch(`https://api.github.com/users/${data}/repos?sort=updated_at&order=desc`)
       .then(resp => resp.json())
@@ -54,7 +45,7 @@ class SearchBar extends React.Component {
           const repos = resp.map(item => item.html_url);
           console.log(repos);
           console.log(resp);
-          this.getWantedData(resp);
+          getWantedData(resp);
         }
       })
       .catch(error => {
@@ -62,16 +53,16 @@ class SearchBar extends React.Component {
       });
   };
 
-  getTechnologiesToSort = (data) => {
+  const getTechnologiesToSort = data => {
     const technologies = [];
     data.map(item => {
       technologies.push(item[0].language !== null ? item[0].language : "Other");
     });
-    console.log("TECXHNo", technologies)
+    console.log("TECXHNo", technologies);
     return [...new Set(technologies)];
   };
 
-  getWantedData = data => {
+  const getWantedData = data => {
     const dataObjects = data.map(item => [
       {
         url: item.html_url,
@@ -84,27 +75,22 @@ class SearchBar extends React.Component {
       }
     ]);
     console.log(dataObjects);
-    this.props.handleTechnologiesToSortChange(this.getTechnologiesToSort(dataObjects))
-    this.props.handleSearchBarDataChange(dataObjects);
+    props.handleTechnologiesToSortChange(getTechnologiesToSort(dataObjects));
+    props.handleSearchBarDataChange(dataObjects);
   };
 
-  
-
-  handleSubmit = e => {
-    // this.props.handleSearchBarDataChange("");
+  const handleSubmit = e => {
     e.preventDefault();
-    const data = this.state.inputValue;
+    const data = inputValue;
     console.log(data);
-    this.handleFetchData(e, data);
+    handleFetchData(e, data);
   };
 
-  render() {
-    return (
-      <StyledForm onSubmit={this.handleSubmit}>
-        <StyledInput type="text" placeholder="Search" onChange={this.handleInputChange} />
-        <StyledButton>Search</StyledButton>
-      </StyledForm>
-    );
-  }
+  return (
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledInput type="text" placeholder="Search" onChange={e => setInputValue(e.target.value)} />
+      <StyledButton>Search</StyledButton>
+    </StyledForm>
+  );
 }
 export default SearchBar;
