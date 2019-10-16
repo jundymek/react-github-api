@@ -70,6 +70,7 @@ function RepositoryList(props) {
             updateDate={item[0]["modification_date"]}
             description={item[0]["description"]}
             language={item[0]["language"]}
+            github_io={item[0]["github_io"]}
           />
         ) : (
           <RepositoryBox
@@ -81,6 +82,7 @@ function RepositoryList(props) {
             updateDate={item[0]["modification_date"]}
             description={item[0]["description"]}
             language={item[0]["language"]}
+            github_io={item[0]["github_io"]}
             isMirrored
           />
         );

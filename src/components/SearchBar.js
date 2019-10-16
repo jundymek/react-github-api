@@ -72,6 +72,7 @@ function SearchBar(props) {
         description: item.description,
         language: item.language,
         key: item.id,
+        github_io: item.homepage
       }
     ]);
     console.log(dataObjects);
@@ -81,9 +82,8 @@ function SearchBar(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const data = inputValue;
-    console.log(data);
-    handleFetchData(e, data);
+    console.log(inputValue);
+    handleFetchData(e, inputValue);
   };
 
   return (

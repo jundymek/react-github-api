@@ -71,6 +71,7 @@ const LeftSection = styled.div`
   @media (max-width: 500px) {
     width: 100%;
     clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 100%);
+    margin-top: 50px;
   }
 `;
 
@@ -118,14 +119,23 @@ const Description = styled.p`
 
 const Created = styled.p``;
 
-const GithubLink = styled.a`
+const LinksWrapper = styled.div`
+  display: flex;
   position: absolute;
+  justify-content: ${props => (props.github_io ? "space-between" : "flex-end")};
+  bottom: 10px;
+  width: 80%;
+  @media (max-width: 500px) {
+    bottom: -20px;
+  }
+`;
+
+const GithubLink = styled.a`
   bottom: 20px;
   color: #7bd338;
-  align-self: flex-end;
-  justify-self: flex-end;
   text-decoration: underline;
   transition: transform 0.3s ease-in;
+  cursor: pointer;
   &:hover {
     transform: translateX(-10px);
   }
@@ -144,7 +154,17 @@ const GithubLink = styled.a`
   }
 `;
 
-function RepositoryBox({ title, url, createDate, updateDate, description, language, isMirrored, img }) {
+function LinksInRepositoryBox({ url, github_io }) {
+  return (
+    <LinksWrapper github_io={github_io}>
+      {github_io ? <GithubLink href={github_io}>Live preview></GithubLink> : null}
+      <GithubLink href={url}>Github></GithubLink>
+    </LinksWrapper>
+  );
+}
+
+function RepositoryBox({ title, url, createDate, updateDate, description, language, isMirrored, img, github_io }) {
+  console.log(github_io);
   return (
     <StyledSection isMirrored={isMirrored}>
       <LeftSection isMirrored={isMirrored}>
@@ -167,10 +187,10 @@ function RepositoryBox({ title, url, createDate, updateDate, description, langua
         </ContentLeft>
       </LeftSection>
       <RightSection isMirrored={isMirrored}>
+        <LinksInRepositoryBox url={url} github_io={github_io} />
         <Title>{title}</Title>
         <SubTitle>{language ? `Written mostly in: ${language}` : ""}</SubTitle>
         <Description>{description ? description : "No desciption for this project"}</Description>
-        <GithubLink href={url}>Read more></GithubLink>
       </RightSection>
     </StyledSection>
   );
