@@ -74,8 +74,8 @@ function App() {
     <MainWrapper>
       <MainHeader
         isData={repositoryData ? true : null}
-        handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
         handleSearchBarDataChange={value => setRepositoryData(value)}
+        handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
       />
       {repositoryData ? (
         <RepositoryList data={repositoryData} technologiesToSort={technologiesToSort} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import RepositoryBox from "./RepositoryBox";
 import img from "../img/code.jpg";
@@ -29,6 +29,10 @@ function RepositoryList(props) {
     console.log(e.target.value);
     setData(getStringifyFilteredData(e.target.value));
   };
+
+  useEffect(() => {
+    setData(props.data)
+  }, [props.data])
 
   const getStringifyFilteredData = value => {
     if (value === "all") {
@@ -63,7 +67,7 @@ function RepositoryList(props) {
         return index % 2 === 0 ? (
           <RepositoryBox
             key={item[0]["key"]}
-            img={images[Math.floor(Math.random() * images.length)]}
+            img={item[0]["img"]}
             title={item[0]["title"]}
             url={item[0]["url"]}
             createDate={item[0]["cration_date"]}

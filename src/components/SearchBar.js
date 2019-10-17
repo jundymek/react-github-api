@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import img from "../img/code.jpg";
+import img1 from "../img/code1.jpg";
+import img2 from "../img/code2.jpg";
+import img3 from "../img/computer.jpg";
+
+const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
 const StyledInput = styled.input`
   height: 2.5rem;
@@ -66,6 +72,7 @@ function SearchBar(props) {
     const dataObjects = data.map(item => [
       {
         url: item.html_url,
+        img: `${images[Math.floor(Math.random() * images.length)]}`,
         title: item.name,
         cration_date: item.created_at.slice(0, 10),
         modification_date: item.updated_at.slice(0, 10),
@@ -82,7 +89,6 @@ function SearchBar(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(inputValue);
     handleFetchData(e, inputValue);
   };
 

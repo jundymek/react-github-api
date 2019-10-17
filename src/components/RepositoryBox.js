@@ -164,7 +164,6 @@ function LinksInRepositoryBox({ url, github_io }) {
 }
 
 function RepositoryBox({ title, url, createDate, updateDate, description, language, isMirrored, img, github_io }) {
-  console.log(github_io);
   return (
     <StyledSection isMirrored={isMirrored}>
       <LeftSection isMirrored={isMirrored}>
