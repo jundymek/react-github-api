@@ -74,12 +74,13 @@ function SearchBar(props) {
         url: item.html_url,
         img: `${images[Math.floor(Math.random() * images.length)]}`,
         title: item.name,
-        cration_date: item.created_at.slice(0, 10),
+        creation_date: item.created_at.slice(0, 10),
         modification_date: item.updated_at.slice(0, 10),
         description: item.description,
         language: item.language,
         key: item.id,
-        github_io: item.homepage
+        github_io: item.homepage,
+        owner: item.owner
       }
     ]);
     console.log(dataObjects);
