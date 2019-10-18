@@ -1,6 +1,6 @@
 import React from "react";
 
-function FilterRepositoryList({ data, options, handleFilterRepositoriesToShow }) {
+function FilterRepositoryListManager({ data, options, handleFilterRepositoriesToShow }) {
   const handleChangeSelectedValue = e => {
     getStringifyFilteredData(e.target.value);
   };
@@ -30,4 +30,4 @@ function FilterRepositoryList({ data, options, handleFilterRepositoriesToShow })
   );
 }
 
-export default FilterRepositoryList;
+export default FilterRepositoryListManager;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MainHeader from "./components/MainHeader";
-import RepositoryList from "./components/RepositoryList";
+import RepositoryListManager from "./components/RepositoryListManager";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 
@@ -78,7 +78,7 @@ function App() {
         handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
       />
       {repositoryData ? (
-        <RepositoryList data={repositoryData} technologiesToSort={technologiesToSort} />
+        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} />
       ) : (
         <Paragraph>
           Please fill above form to get data from GitHub API. List all repositories of specified user.
