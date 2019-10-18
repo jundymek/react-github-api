@@ -46,6 +46,7 @@ const Paragraph = styled.p`
 
 function App() {
   const [repositoryData, setRepositoryData] = useState(null);
+  const [repositoryDataLength, setRepositoryDataLength] = useState(null);
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
 
@@ -76,9 +77,10 @@ function App() {
         isData={repositoryData ? true : null}
         handleSearchBarDataChange={value => setRepositoryData(value)}
         handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
+        handleRepositoryDataChange={value => setRepositoryDataLength(value)}
       />
       {repositoryData ? (
-        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} />
+        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} repositoryDataLength={repositoryDataLength} />
       ) : (
         <Paragraph>
           Please fill above form to get data from GitHub API. List all repositories of specified user.

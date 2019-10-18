@@ -83,9 +83,8 @@ export const Icon = styled.img`
   height: 20px;
 `;
 
-export function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryCounter }) {
-  
-    const filterOptions = technologies.map((item, index) => {
+export function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryDataLength }) {
+  const filterOptions = technologies.map((item, index) => {
     return (
       <option key={index} value={item}>
         {item}
@@ -93,17 +92,13 @@ export function RepositoryUserBox({ owner, technologies, handleChangeSelectedVal
     );
   });
 
-  const [repositoryCounterAll, setRepositoryCounterAll] = useState(repositoryCounter);
+  const [selectedFilterOption, setSelectedFilterOption] = useState("all");
 
-  useEffect(() => {
-    setRepositoryCounterAll(repositoryCounter);
-  }, [repositoryCounter]);
-  
   return (
     <BoxWrapper>
       <StyledH2>Repositories of {owner.login}</StyledH2>
       <UserBoxUl>
-        <UserBoxLi>Number of repositories: {repositoryCounterAll}</UserBoxLi>
+        <UserBoxLi>Number of repositories: {repositoryDataLength}</UserBoxLi>
         <UserBoxLi>
           Github link:{" "}
           <a href="https://github.com/jundymek" aria-label="Link to github profile">
@@ -116,7 +111,11 @@ export function RepositoryUserBox({ owner, technologies, handleChangeSelectedVal
       <select
         style={{ background: "#7bd338", color: "#000" }}
         id="language"
-        onChange={e => handleChangeSelectedValue(e)}
+        onChange={e => {
+          handleChangeSelectedValue(e);
+          setSelectedFilterOption(e.target.value);
+        }}
+        value={selectedFilterOption}
       >
         <option value="all">All</option>
         {filterOptions}

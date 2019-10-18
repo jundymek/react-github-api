@@ -45,6 +45,7 @@ function RepositoryListManager(props) {
         owner={data[0][0]["owner"]}
         technologies={technologies}
         handleChangeSelectedValue={handleChangeSelectedValue}
+        repositoryDataLength={props.repositoryDataLength}
       />
       <RepositoryList data={data} />
     </StyledSection>

@@ -84,8 +84,10 @@ function SearchBar(props) {
       }
     ]);
     console.log(dataObjects);
+    console.log(dataObjects.length);
     props.handleTechnologiesToSortChange(getTechnologiesToSort(dataObjects));
     props.handleSearchBarDataChange(dataObjects);
+    props.handleRepositoryDataChange(dataObjects.length);
   };
 
   const handleSubmit = e => {
