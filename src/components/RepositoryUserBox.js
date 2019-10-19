@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import img from "../img/github_icon_small.png";
+import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
 
 export const BoxWrapper = styled.section`
   display: flex;
@@ -34,6 +35,7 @@ export const StyledLabel = styled.label`
 
 export const UserBoxUl = styled.ul`
   list-style-type: none;
+  margin-left: -40px;
   &::before {
     position: absolute;
     margin-top: -20px;
@@ -83,7 +85,7 @@ export const Icon = styled.img`
   height: 20px;
 `;
 
-export function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryDataLength }) {
+function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryDataLength, data }) {
   const filterOptions = technologies.map((item, index) => {
     return (
       <option key={index} value={item}>
@@ -97,8 +99,17 @@ export function RepositoryUserBox({ owner, technologies, handleChangeSelectedVal
   return (
     <BoxWrapper>
       <StyledH2>Repositories of {owner.login}</StyledH2>
+      <UserImage src={owner.avatar_url} />
       <UserBoxUl>
         <UserBoxLi>Number of repositories: {repositoryDataLength}</UserBoxLi>
+        <ol>
+          <RepositoryLanguagesCounter
+            data={data}
+            technologies={technologies}
+            repositoryDataLength={repositoryDataLength}
+          />
+        </ol>
+
         <UserBoxLi>
           Github link:{" "}
           <a href="https://github.com/jundymek" aria-label="Link to github profile">
@@ -106,8 +117,7 @@ export function RepositoryUserBox({ owner, technologies, handleChangeSelectedVal
           </a>
         </UserBoxLi>
       </UserBoxUl>
-      <UserImage src={owner.avatar_url} />
-      <StyledLabel htmlFor="language">Sort by technology</StyledLabel>
+      <StyledLabel htmlFor="language">Sort by language</StyledLabel>
       <select
         style={{ background: "#7bd338", color: "#000" }}
         id="language"
@@ -123,3 +133,5 @@ export function RepositoryUserBox({ owner, technologies, handleChangeSelectedVal
     </BoxWrapper>
   );
 }
+
+export default RepositoryUserBox;

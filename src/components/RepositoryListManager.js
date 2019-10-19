@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RepositoryList } from "./RepositoryList";
-import { RepositoryUserBox } from "./RepositoryUserBox";
+import RepositoryUserBox  from "./RepositoryUserBox";
 
 const StyledSection = styled.section`
   display: flex;
@@ -46,6 +46,7 @@ function RepositoryListManager(props) {
         technologies={technologies}
         handleChangeSelectedValue={handleChangeSelectedValue}
         repositoryDataLength={props.repositoryDataLength}
+        data={props.data}
       />
       <RepositoryList data={data} />
     </StyledSection>
