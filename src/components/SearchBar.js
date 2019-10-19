@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
@@ -46,11 +46,13 @@ function SearchBar(props) {
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
           console.log(resp);
+          props.setIsUserNotFound(true)
         } else {
           console.log(resp);
           const repos = resp.map(item => item.html_url);
           console.log(repos);
           console.log(resp);
+          props.setIsUserNotFound(false)
           getWantedData(resp);
         }
       })

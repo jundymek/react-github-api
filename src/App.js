@@ -3,6 +3,7 @@ import MainHeader from "./components/MainHeader";
 import RepositoryListManager from "./components/RepositoryListManager";
 import Footer from "./components/Footer";
 import styled from "styled-components";
+import { UserNotFoundBox } from "./UserNotFoundBox";
 
 const MainWrapper = styled.main`
   display: flex;
@@ -36,6 +37,7 @@ const Arrow = styled.a`
 `;
 
 const Paragraph = styled.p`
+  display: ${(props) => (props.isInvisible ? 'none' : 'block')};
   width: 35%;
   align-self: flex-end;
   text-align: justify;
@@ -51,6 +53,7 @@ function App() {
   const [repositoryData, setRepositoryData] = useState(null);
   const [repositoryDataLength, setRepositoryDataLength] = useState(null);
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
+  const [isUserNotFound, setIsUserNotFound] = useState(false)
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
 
   const handleScroll = useCallback(
@@ -66,11 +69,15 @@ function App() {
   )
 
   useEffect(() => {
+    if (isUserNotFound) {
+      console.log('USERNOT RERENDER')
+      setRepositoryData(null)
+    }
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll]);
+  }, [handleScroll, isUserNotFound]);
 
   
 
@@ -81,11 +88,16 @@ function App() {
         handleSearchBarDataChange={value => setRepositoryData(value)}
         handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
         handleRepositoryDataChange={value => setRepositoryDataLength(value)}
+        isUserNotFound={isUserNotFound}
+        setIsUserNotFound={value => setIsUserNotFound(value)}
       />
+      {isUserNotFound ? (
+        <UserNotFoundBox />
+      ) : ''}
       {repositoryData ? (
         <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} repositoryDataLength={repositoryDataLength} />
       ) : (
-        <Paragraph>
+        <Paragraph isInvisible={isUserNotFound}>
           Please fill above form to get data from GitHub API. List all repositories of specified user.
         </Paragraph>
       )}
