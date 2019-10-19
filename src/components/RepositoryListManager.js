@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RepositoryList } from "./RepositoryList";
-import RepositoryUserBox  from "./RepositoryUserBox";
+import RepositoryUserBox from "./RepositoryUserBox";
+import RepositoryBox from "./RepositoryBox";
 
 const StyledSection = styled.section`
   display: flex;
@@ -38,6 +39,38 @@ function RepositoryListManager(props) {
     }
   };
 
+  const renderRepositoryLeft = item => {
+    return (
+      <RepositoryBox
+        key={item[0]["key"]}
+        img={item[0]["img"]}
+        title={item[0]["title"]}
+        url={item[0]["url"]}
+        createDate={item[0]["creation_date"]}
+        updateDate={item[0]["modification_date"]}
+        description={item[0]["description"]}
+        language={item[0]["language"]}
+        github_io={item[0]["github_io"]}
+      />
+    );
+  };
+
+  const renderRepositoryRight = item => {
+    return (
+      <RepositoryBox
+        key={item[0]["key"]}
+        img={item[0]["img"]}
+        title={item[0]["title"]}
+        url={item[0]["url"]}
+        createDate={item[0]["creation_date"]}
+        updateDate={item[0]["modification_date"]}
+        description={item[0]["description"]}
+        language={item[0]["language"]}
+        github_io={item[0]["github_io"]}
+      />
+    );
+  };
+
   return (
     <StyledSection>
       <RepositoryUserBox
@@ -48,7 +81,11 @@ function RepositoryListManager(props) {
         repositoryDataLength={props.repositoryDataLength}
         data={props.data}
       />
-      <RepositoryList data={data} />
+      <RepositoryList 
+        data={data} 
+        renderLeft={renderRepositoryLeft} 
+        renderRight={renderRepositoryRight} 
+      />
     </StyledSection>
   );
 }

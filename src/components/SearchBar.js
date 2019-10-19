@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";

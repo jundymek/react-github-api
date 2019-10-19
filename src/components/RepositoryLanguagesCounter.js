@@ -1,9 +1,9 @@
 import React from "react";
 
 export function RepositoryLanguagesCounter({ technologies, data }) {
-  return technologies.map(value => {
+  return technologies.map((value, index) => {
     return (
-      <li>
+      <li key={index}>
         {value}: {countTechnologies(value)}
       </li>
     );
