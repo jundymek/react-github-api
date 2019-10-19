@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
 
-export const BoxWrapper = styled.section`
+const BoxWrapper = styled.section`
   display: flex;
   max-width: 600px;
   min-height: 400px;
@@ -19,7 +19,7 @@ export const BoxWrapper = styled.section`
   padding-bottom: 20px;
 `;
 
-export const UserImage = styled.img`
+const UserImage = styled.img`
   max-width: 400px;
   max-height: 400px;
   width: 80%;
@@ -28,12 +28,11 @@ export const UserImage = styled.img`
   margin-bottom: 20px;
 `;
 
-export const StyledLabel = styled.label`
+const StyledLabel = styled.label`
   display: block;
-  margin-right: 20px;
 `;
 
-export const UserBoxUl = styled.ul`
+const UserBoxUl = styled.ul`
   list-style-type: none;
   margin-left: -40px;
   &::before {
@@ -46,31 +45,15 @@ export const UserBoxUl = styled.ul`
   }
 `;
 
-const typing = keyframes`
-  0% {
-      width: 0%;
-      opacity: 0;
-  }
-  1% {
-    opacity: 1;
-  }
-  100% {
-      width: 100%;
-      opacity: 1;
-  }
-`;
-
-export const StyledH2 = styled.h2`
+const StyledH2 = styled.h2`
   overflow: hidden;
-  white-space: nowrap;
   margin: 0 auto;
   font-weight: 700;
   margin: 20px 0;
   text-align: center;
-  animation: ${typing} 3.5s steps(40, end);
 `;
 
-export const UserBoxLi = styled.li`
+const UserBoxLi = styled.li`
   list-style-type: none;
   &::before {
     content: "✓";
@@ -80,7 +63,12 @@ export const UserBoxLi = styled.li`
   }
 `;
 
-export const Icon = styled.img`
+const StyledSelect = styled.select`
+  background: "#7bd338";
+  color: "#000";
+`;
+
+const Icon = styled.img`
   width: 20px;
   height: 20px;
 `;
@@ -118,7 +106,7 @@ function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, rep
         </UserBoxLi>
       </UserBoxUl>
       <StyledLabel htmlFor="language">Sort by language</StyledLabel>
-      <select
+      <StyledSelect
         style={{ background: "#7bd338", color: "#000" }}
         id="language"
         onChange={e => {
@@ -129,7 +117,7 @@ function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, rep
       >
         <option value="all">All</option>
         {filterOptions}
-      </select>
+      </StyledSelect>
     </BoxWrapper>
   );
 }

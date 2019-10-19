@@ -30,6 +30,9 @@ const Arrow = styled.a`
     font-size: 40px;
     content: "🔝";
   }
+  @media (max-width: 400px) {
+    display: none;
+  }
 `;
 
 const Paragraph = styled.p`
