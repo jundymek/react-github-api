@@ -9,7 +9,7 @@ export function RepositoryLanguagesCounter({ technologies, data }) {
     );
   });
   function countTechnologies(language) {
-    return data.filter(data => (language !== "Other" ? data[0]["language"] === language : data[0]["language"] === null))
+    return data.filter(data => (language !== "Other" ? data["language"] === language : data["language"] === null))
       .length;
   }
 }

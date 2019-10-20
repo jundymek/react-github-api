@@ -42,15 +42,15 @@ function RepositoryListManager(props) {
   const renderRepositoryLeft = item => {
     return (
       <RepositoryBox
-        key={item[0]["key"]}
-        img={item[0]["img"]}
-        title={item[0]["title"]}
-        url={item[0]["url"]}
-        createDate={item[0]["creation_date"]}
-        updateDate={item[0]["modification_date"]}
-        description={item[0]["description"]}
-        language={item[0]["language"]}
-        github_io={item[0]["github_io"]}
+        key={item["key"]}
+        img={item["img"]}
+        title={item["title"]}
+        url={item["url"]}
+        createDate={item["creation_date"]}
+        updateDate={item["modification_date"]}
+        description={item["description"]}
+        language={item["language"]}
+        github_io={item["github_io"]}
       />
     );
   };
@@ -58,15 +58,15 @@ function RepositoryListManager(props) {
   const renderRepositoryRight = item => {
     return (
       <RepositoryBox
-        key={item[0]["key"]}
-        img={item[0]["img"]}
-        title={item[0]["title"]}
-        url={item[0]["url"]}
-        createDate={item[0]["creation_date"]}
-        updateDate={item[0]["modification_date"]}
-        description={item[0]["description"]}
-        language={item[0]["language"]}
-        github_io={item[0]["github_io"]}
+        key={item["key"]}
+        img={item["img"]}
+        title={item["title"]}
+        url={item["url"]}
+        createDate={item["creation_date"]}
+        updateDate={item["modification_date"]}
+        description={item["description"]}
+        language={item["language"]}
+        github_io={item["github_io"]}
         isMirrored
       />
     );
@@ -76,7 +76,7 @@ function RepositoryListManager(props) {
     <StyledSection>
       <RepositoryUserBox
         repositoryCounter={data.length}
-        owner={data[0][0]["owner"]}
+        owner={data[0]["owner"]}
         technologies={technologies}
         handleChangeSelectedValue={handleChangeSelectedValue}
         repositoryDataLength={props.repositoryDataLength}

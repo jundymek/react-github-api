@@ -64,15 +64,16 @@ function SearchBar(props) {
   const getTechnologiesToSort = data => {
     const technologies = [];
     data.map(item => {
-      technologies.push(item[0].language !== null ? item[0].language : "Other");
+      technologies.push(item.language !== null ? item.language : "Other");
       return technologies;
     });
     return [...new Set(technologies)];
   };
 
   const getWantedData = data => {
-    const dataObjects = data.map(item => [
-      {
+    const dataObjects = data.map(item => {
+      console.log(item)
+      return ({
         url: item.html_url,
         img: `${images[Math.floor(Math.random() * images.length)]}`,
         title: item.name,
@@ -83,8 +84,9 @@ function SearchBar(props) {
         key: item.id,
         github_io: item.homepage,
         owner: item.owner
-      }
-    ]);
+      })
+      
+    });
     console.log(dataObjects);
     console.log(dataObjects.length);
     props.handleTechnologiesToSortChange(getTechnologiesToSort(dataObjects));
