@@ -67,6 +67,7 @@ function RepositoryListManager(props) {
         description={item[0]["description"]}
         language={item[0]["language"]}
         github_io={item[0]["github_io"]}
+        isMirrored
       />
     );
   };
