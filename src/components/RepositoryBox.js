@@ -163,7 +163,7 @@ function LinksInRepositoryBox({ url, github_io }) {
   );
 }
 
-function RepositoryBox({ title, url, createDate, updateDate, description, language, isMirrored, img, github_io }) {
+function RepositoryBox({ item: {title, url, creation_date, modification_date, description, language, img, github_io }, isMirrored}) {
   return (
     <StyledSection isMirrored={isMirrored}>
       <LeftSection isMirrored={isMirrored}>
@@ -174,14 +174,14 @@ function RepositoryBox({ title, url, createDate, updateDate, description, langua
             <span role="img" aria-label="calendar icon">
               📅
             </span>
-            : {createDate}
+            : {creation_date}
           </Created>
           <Created>
             Updated{" "}
             <span role="img" aria-label="calendar icon">
               📅
             </span>
-            : {updateDate}
+            : {modification_date}
           </Created>
         </ContentLeft>
       </LeftSection>

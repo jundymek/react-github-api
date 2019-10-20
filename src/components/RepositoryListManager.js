@@ -39,36 +39,9 @@ function RepositoryListManager(props) {
     }
   };
 
-  const renderRepositoryLeft = item => {
+  const renderRepositoryBox = (item, isMirrored, key) => {
     return (
-      <RepositoryBox
-        key={item["key"]}
-        img={item["img"]}
-        title={item["title"]}
-        url={item["url"]}
-        createDate={item["creation_date"]}
-        updateDate={item["modification_date"]}
-        description={item["description"]}
-        language={item["language"]}
-        github_io={item["github_io"]}
-      />
-    );
-  };
-
-  const renderRepositoryRight = item => {
-    return (
-      <RepositoryBox
-        key={item["key"]}
-        img={item["img"]}
-        title={item["title"]}
-        url={item["url"]}
-        createDate={item["creation_date"]}
-        updateDate={item["modification_date"]}
-        description={item["description"]}
-        language={item["language"]}
-        github_io={item["github_io"]}
-        isMirrored
-      />
+      <RepositoryBox key={key} item={item} isMirrored={isMirrored} />
     );
   };
 
@@ -84,8 +57,7 @@ function RepositoryListManager(props) {
       />
       <RepositoryList 
         data={data} 
-        renderLeft={renderRepositoryLeft} 
-        renderRight={renderRepositoryRight} 
+        renderRepositoryBox={renderRepositoryBox}
       />
     </StyledSection>
   );

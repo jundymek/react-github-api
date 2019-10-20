@@ -1,10 +1,10 @@
 
-export function RepositoryList({ data, renderLeft, renderRight }) {
+export function RepositoryList({ data, renderRepositoryBox, isMirrored}) {
   return data.map((item, index) => {
     return index % 2 === 0 ? (
-      renderLeft(item)
+        renderRepositoryBox(item, isMirrored=false, index)
     ) : (
-      renderRight(item)
+        renderRepositoryBox(item, isMirrored=true, index)
     );
   });
 }
