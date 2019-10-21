@@ -30,11 +30,11 @@ function RepositoryListManager(props) {
       return props.data;
     } else if (value === "Other") {
       return props.data.filter(item => {
-        return item[0].language === null;
+        return item.language === null;
       });
     } else {
       return props.data.filter(item => {
-        return item[0].language === value;
+        return item.language === value;
       });
     }
   };
