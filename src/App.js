@@ -69,7 +69,6 @@ function App() {
   )
 
   useEffect(() => {
-    console.log(React.version);
     if (isUserNotFound) {
       console.log('USERNOT RERENDER')
       setRepositoryData(null)

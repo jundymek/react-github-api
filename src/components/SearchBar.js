@@ -14,13 +14,25 @@ const StyledInput = styled.input`
   border: 1px solid #000;
   border-radius: 2px;
 `;
+
+const InputWrapper = styled.div`
+  display:flex;
+  margin-top: 10px;
+`
+
+const CheckboxLabel = styled.label`
+  font-size: 10px;
+  margin-top: 2px;
+`
+
 const StyledForm = styled.form`
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   max-width: 300px;
   width: 100%;
 `;
-const colors = ["red", "blue", "green", "yellow"];
+
 const StyledButton = styled.button`
   height: 2.5rem;
   padding: 0.5rem;
@@ -28,7 +40,6 @@ const StyledButton = styled.button`
   background-color: #000;
   border: 1px solid #fff;
   color: #fff;
-  /* color: ${colors[Math.floor(Math.random() * colors.length)]}; */
   width: 5rem;
   border-radius: 2px;
   transition: transform 0.3s ease-in;
@@ -36,8 +47,11 @@ const StyledButton = styled.button`
     transform: scale(1.1);
   }
 `;
+
 function SearchBar(props) {
   const [inputValue, setInputValue] = useState("");
+  const [isCheckboxPressed, setIsCheckboxPressed] = useState(false)
+  console.log(isCheckboxPressed)
 
   const handleFetchData = (e, data) => {
     e.preventDefault();
@@ -71,8 +85,17 @@ function SearchBar(props) {
   };
 
   const getWantedData = data => {
-    const dataObjects = data.map(item => {
-      console.log(item)
+    let dataObjects = {}
+    if (isCheckboxPressed) {
+      console.log('CHECKBOX PRESSED fetch')
+      dataObjects = data.filter((item) => {
+        return item.homepage 
+      })
+    } else {
+      dataObjects = data
+    };
+    
+    const wantedData = dataObjects.map(item => {
       return ({
         url: item.html_url,
         img: `${images[Math.floor(Math.random() * images.length)]}`,
@@ -87,11 +110,11 @@ function SearchBar(props) {
       })
       
     });
-    console.log(dataObjects);
-    console.log(dataObjects.length);
-    props.handleTechnologiesToSortChange(getTechnologiesToSort(dataObjects));
-    props.handleSearchBarDataChange(dataObjects);
-    props.handleRepositoryDataChange(dataObjects.length);
+    console.log(wantedData);
+    console.log(wantedData.length);
+    props.handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+    props.handleSearchBarDataChange(wantedData);
+    props.handleRepositoryDataChange(wantedData.length);
   };
 
   const handleSubmit = e => {
@@ -101,8 +124,15 @@ function SearchBar(props) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledInput type="text" placeholder="Search" onChange={e => setInputValue(e.target.value)} />
-      <StyledButton>Search</StyledButton>
+      <label htmlFor="search">List specified user repositories</label>
+      <InputWrapper>
+        <StyledInput id="search" type="text" placeholder="Search" onChange={e => setInputValue(e.target.value)} />
+        <StyledButton>Search</StyledButton>
+      </InputWrapper>
+      <InputWrapper>
+      <input onChange={() => setIsCheckboxPressed(prevState => !prevState)} type="checkbox" name="checkbox" id="checkbox" value="Live" />
+      <CheckboxLabel htmlFor="checkbox">Search only for repositories with working homepage</CheckboxLabel>
+      </InputWrapper>
     </StyledForm>
   );
 }
