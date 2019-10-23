@@ -4,6 +4,7 @@ import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
 import img2 from "../img/code2.jpg";
 import img3 from "../img/computer.jpg";
+import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 
 const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
@@ -51,11 +52,14 @@ const StyledButton = styled.button`
 function SearchBar(props) {
   const [inputValue, setInputValue] = useState("");
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false)
+  const [isLoading, setisLoading] = useState(false)
   console.log(isCheckboxPressed)
 
   const handleFetchData = (e, data) => {
     e.preventDefault();
+    setisLoading(true)
     fetch(`https://api.github.com/users/${data}/repos?sort=updated_at&order=desc`)
+      
       .then(resp => resp.json())
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
@@ -68,20 +72,12 @@ function SearchBar(props) {
           console.log(resp);
           props.setIsUserNotFound(false)
           getWantedData(resp);
+          setisLoading(false)
         }
       })
       .catch(error => {
         console.log(error);
       });
-  };
-
-  const getTechnologiesToSort = data => {
-    const technologies = [];
-    data.map(item => {
-      technologies.push(item.language !== null ? item.language : "Other");
-      return technologies;
-    });
-    return [...new Set(technologies)];
   };
 
   const getWantedData = data => {
@@ -133,7 +129,9 @@ function SearchBar(props) {
       <input onChange={() => setIsCheckboxPressed(prevState => !prevState)} type="checkbox" name="checkbox" id="checkbox" value="Live" />
       <CheckboxLabel htmlFor="checkbox">Search only for repositories with working homepage</CheckboxLabel>
       </InputWrapper>
+      {isLoading ? "Loading..." : null}
     </StyledForm>
   );
 }
 export default SearchBar;
+
