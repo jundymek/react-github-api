@@ -5,8 +5,9 @@ import img1 from "../img/code1.jpg";
 import img2 from "../img/code2.jpg";
 import img3 from "../img/computer.jpg";
 import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
+import { getWantedData } from "./helpers/getWantedData";
 
-const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
+export const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
 const StyledInput = styled.input`
   height: 2.5rem;
@@ -17,14 +18,14 @@ const StyledInput = styled.input`
 `;
 
 const InputWrapper = styled.div`
-  display:flex;
+  display: flex;
   margin-top: 10px;
-`
+`;
 
 const CheckboxLabel = styled.label`
   font-size: 10px;
   margin-top: 2px;
-`
+`;
 
 const StyledForm = styled.form`
   display: flex;
@@ -51,66 +52,33 @@ const StyledButton = styled.button`
 
 function SearchBar(props) {
   const [inputValue, setInputValue] = useState("");
-  const [isCheckboxPressed, setIsCheckboxPressed] = useState(false)
-  const [isLoading, setisLoading] = useState(false)
-  console.log(isCheckboxPressed)
+  const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const handleFetchData = (e, data) => {
     e.preventDefault();
-    setisLoading(true)
+    setisLoading(true);
     fetch(`https://api.github.com/users/${data}/repos?sort=updated_at&order=desc`)
-      
       .then(resp => resp.json())
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
           console.log(resp);
-          props.setIsUserNotFound(true)
+          props.setIsUserNotFound(true);
+          setisLoading(false);
         } else {
           console.log(resp);
-          const repos = resp.map(item => item.html_url);
-          console.log(repos);
-          console.log(resp);
-          props.setIsUserNotFound(false)
-          getWantedData(resp);
-          setisLoading(false)
+          props.setIsUserNotFound(false);
+          const wantedData = getWantedData(resp, isCheckboxPressed);
+          console.log(wantedData);
+          props.handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+          props.handleSearchBarDataChange(wantedData);
+          props.handleRepositoryDataChange(wantedData.length);
+          setisLoading(false);
         }
       })
       .catch(error => {
         console.log(error);
       });
-  };
-
-  const getWantedData = data => {
-    let dataObjects = {}
-    if (isCheckboxPressed) {
-      console.log('CHECKBOX PRESSED fetch')
-      dataObjects = data.filter((item) => {
-        return item.homepage 
-      })
-    } else {
-      dataObjects = data
-    };
-    
-    const wantedData = dataObjects.map(item => {
-      return ({
-        url: item.html_url,
-        img: `${images[Math.floor(Math.random() * images.length)]}`,
-        title: item.name,
-        creation_date: item.created_at.slice(0, 10),
-        modification_date: item.updated_at.slice(0, 10),
-        description: item.description,
-        language: item.language,
-        key: item.id,
-        github_io: item.homepage,
-        owner: item.owner
-      })
-      
-    });
-    console.log(wantedData);
-    console.log(wantedData.length);
-    props.handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-    props.handleSearchBarDataChange(wantedData);
-    props.handleRepositoryDataChange(wantedData.length);
   };
 
   const handleSubmit = e => {
@@ -126,12 +94,16 @@ function SearchBar(props) {
         <StyledButton>Search</StyledButton>
       </InputWrapper>
       <InputWrapper>
-      <input onChange={() => setIsCheckboxPressed(prevState => !prevState)} type="checkbox" name="checkbox" id="checkbox" value="Live" />
-      <CheckboxLabel htmlFor="checkbox">Search only for repositories with working homepage</CheckboxLabel>
+        <input
+          onChange={() => setIsCheckboxPressed(prevState => !prevState)}
+          type="checkbox"
+          name="checkbox"
+          id="checkbox"
+        />
+        <CheckboxLabel htmlFor="checkbox">Search only for repositories with working homepage</CheckboxLabel>
       </InputWrapper>
       {isLoading ? "Loading..." : null}
     </StyledForm>
   );
 }
 export default SearchBar;
-
