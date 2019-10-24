@@ -37,14 +37,14 @@ const StyledH1 = styled.h1`
 `;
 
 function MainHeader(props) {
-  const { handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataChange, setIsUserNotFound } = props;
+  const { handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataLengthChange, setIsUserNotFound } = props;
   return (
     <StyledHeader isData={props.isData} isUserNotFound={props.isUserNotFound}>
       <StyledH1>Github repos - API</StyledH1>
       <SearchBar 
         handleSearchBarDataChange={handleSearchBarDataChange} 
         handleTechnologiesToSortChange={handleTechnologiesToSortChange} 
-        handleRepositoryDataChange={handleRepositoryDataChange}
+        handleRepositoryDataLengthChange={handleRepositoryDataLengthChange}
         setIsUserNotFound={setIsUserNotFound}
 
       />

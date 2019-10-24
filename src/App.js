@@ -3,7 +3,7 @@ import MainHeader from "./components/MainHeader";
 import RepositoryListManager from "./components/RepositoryListManager";
 import Footer from "./components/Footer";
 import styled from "styled-components";
-import { UserNotFoundBox } from "./UserNotFoundBox";
+import { UserNotFoundBox } from "./components/UserNotFoundBox";
 
 const MainWrapper = styled.main`
   display: flex;
@@ -87,7 +87,7 @@ function App() {
         isData={repositoryData ? true : null}
         handleSearchBarDataChange={value => setRepositoryData(value)}
         handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
-        handleRepositoryDataChange={value => setRepositoryDataLength(value)}
+        handleRepositoryDataLengthChange={value => setRepositoryDataLength(value)}
         isUserNotFound={isUserNotFound}
         setIsUserNotFound={value => setIsUserNotFound(value)}
       />

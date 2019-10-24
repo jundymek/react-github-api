@@ -50,7 +50,7 @@ const StyledButton = styled.button`
   }
 `;
 
-function SearchBar(props) {
+function SearchBar({setIsUserNotFound, handleTechnologiesToSortChange, handleSearchBarDataChange, handleRepositoryDataLengthChange}) {
   const [inputValue, setInputValue] = useState("");
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -63,16 +63,16 @@ function SearchBar(props) {
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
           console.log(resp);
-          props.setIsUserNotFound(true);
+          setIsUserNotFound(true);
           setisLoading(false);
         } else {
           console.log(resp);
-          props.setIsUserNotFound(false);
+          setIsUserNotFound(false);
           const wantedData = getWantedData(resp, isCheckboxPressed);
           console.log(wantedData);
-          props.handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-          props.handleSearchBarDataChange(wantedData);
-          props.handleRepositoryDataChange(wantedData.length);
+          handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+          handleSearchBarDataChange(wantedData);
+          handleRepositoryDataLengthChange(wantedData.length);
           setisLoading(false);
         }
       })
