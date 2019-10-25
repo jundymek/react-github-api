@@ -4,6 +4,7 @@ import { RepositoryList } from "./RepositoryList";
 import RepositoryUserBox from "./RepositoryUserBox";
 import RepositoryBox from "./RepositoryBox";
 import PropTypes from 'prop-types';
+import { getFilteredDataByTechnology } from "./helpers/getFilteredDataByTechnology";
 
 const StyledSection = styled.section`
   display: flex;
@@ -18,26 +19,14 @@ function RepositoryListManager({data, technologiesToSort, repositoryDataLength})
 
   const handleChangeSelectedValue = e => {
     console.log(e.target.value);
-    setData(getStringifyFilteredData(e.target.value));
+    setData(getFilteredDataByTechnology(e.target.value, data));
   };
 
   useEffect(() => {
     setData(data);
   }, [data]);
 
-  const getStringifyFilteredData = value => {
-    if (value === "all") {
-      return data;
-    } else if (value === "Other") {
-      return data.filter(item => {
-        return item.language === null;
-      });
-    } else {
-      return data.filter(item => {
-        return item.language === value;
-      });
-    }
-  };
+  
 
   const renderRepositoryBox = (item, isMirrored, key) => {
     return (
@@ -70,3 +59,5 @@ RepositoryListManager.propTypes = {
 }
 
 export default RepositoryListManager;
+
+
