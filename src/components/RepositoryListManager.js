@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { RepositoryList } from "./RepositoryList";
 import RepositoryUserBox from "./RepositoryUserBox";
 import RepositoryBox from "./RepositoryBox";
+import PropTypes from 'prop-types';
 
 const StyledSection = styled.section`
   display: flex;
@@ -12,9 +13,8 @@ const StyledSection = styled.section`
   margin-bottom: 50px;
 `;
 
-function RepositoryListManager(props) {
-  const [data, setData] = useState(props.data);
-  const technologies = props.technologiesToSort;
+function RepositoryListManager({data, technologiesToSort, repositoryDataLength}) {
+  const [repositoriesData, setData] = useState(data);
 
   const handleChangeSelectedValue = e => {
     console.log(e.target.value);
@@ -22,18 +22,18 @@ function RepositoryListManager(props) {
   };
 
   useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
+    setData(data);
+  }, [data]);
 
   const getStringifyFilteredData = value => {
     if (value === "all") {
-      return props.data;
+      return data;
     } else if (value === "Other") {
-      return props.data.filter(item => {
+      return data.filter(item => {
         return item.language === null;
       });
     } else {
-      return props.data.filter(item => {
+      return data.filter(item => {
         return item.language === value;
       });
     }
@@ -48,19 +48,25 @@ function RepositoryListManager(props) {
   return (
     <StyledSection>
       <RepositoryUserBox
-        repositoryCounter={data.length}
-        owner={data[0]["owner"]}
-        technologies={technologies}
+        repositoryCounter={repositoriesData.length}
+        owner={repositoriesData[0]["owner"]}
+        technologies={technologiesToSort}
         handleChangeSelectedValue={handleChangeSelectedValue}
-        repositoryDataLength={props.repositoryDataLength}
-        data={props.data}
+        repositoryDataLength={repositoryDataLength}
+        data={data}
       />
       <RepositoryList 
-        data={data} 
+        data={repositoriesData} 
         renderRepositoryBox={renderRepositoryBox}
       />
     </StyledSection>
   );
+}
+
+RepositoryListManager.propTypes = {
+  data: PropTypes.array,
+  technologiesToSort: PropTypes.array,
+  repositoryDataLength: PropTypes.number
 }
 
 export default RepositoryListManager;

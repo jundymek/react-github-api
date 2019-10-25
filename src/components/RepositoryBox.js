@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import PropTypes from 'prop-types';
 
 const ContentLeft = styled.div`
   transform: translateX(-150%);
@@ -193,6 +194,11 @@ function RepositoryBox({ item: {title, url, creation_date, modification_date, de
       </RightSection>
     </StyledSection>
   );
+}
+
+RepositoryBox.propTypes = {
+  item: PropTypes.object,
+  isMirrored: PropTypes.bool
 }
 
 export default RepositoryBox;

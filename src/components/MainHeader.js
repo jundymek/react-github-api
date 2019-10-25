@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
+import PropTypes from 'prop-types';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -36,10 +37,9 @@ const StyledH1 = styled.h1`
   }
 `;
 
-function MainHeader(props) {
-  const { handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataLengthChange, setIsUserNotFound } = props;
+function MainHeader({ isData, handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataLengthChange, setIsUserNotFound, isUserNotFound }) {
   return (
-    <StyledHeader isData={props.isData} isUserNotFound={props.isUserNotFound}>
+    <StyledHeader isData={isData} isUserNotFound={isUserNotFound}>
       <StyledH1>Github repos - API</StyledH1>
       <SearchBar 
         handleSearchBarDataChange={handleSearchBarDataChange} 
@@ -50,6 +50,15 @@ function MainHeader(props) {
       />
     </StyledHeader>
   );
+}
+
+MainHeader.propTypes = {
+  isData: PropTypes.bool,
+  handleSearchBarDataChange: PropTypes.func,
+  handleTechnologiesToSortChange: PropTypes.func,
+  handleRepositoryDataLengthChange: PropTypes.func,
+  setIsUserNotFound: PropTypes.func,
+  isUserNotFound: PropTypes.bool
 }
 
 export default MainHeader;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export function RepositoryLanguagesCounter({ technologies, data }) {
   return technologies.map((value, index) => {
@@ -12,4 +13,9 @@ export function RepositoryLanguagesCounter({ technologies, data }) {
     return data.filter(data => (language !== "Other" ? data["language"] === language : data["language"] === null))
       .length;
   }
+}
+
+RepositoryLanguagesCounter.propTypes = {
+  technologies: PropTypes.array,
+  data: PropTypes.array
 }

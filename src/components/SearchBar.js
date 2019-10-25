@@ -6,6 +6,8 @@ import img2 from "../img/code2.jpg";
 import img3 from "../img/computer.jpg";
 import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 import { getWantedData } from "./helpers/getWantedData";
+import PropTypes from 'prop-types';
+
 
 export const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
@@ -106,4 +108,12 @@ function SearchBar({setIsUserNotFound, handleTechnologiesToSortChange, handleSea
     </StyledForm>
   );
 }
+
+SearchBar.propTypes = {
+  setIsUserNotFound: PropTypes.func,
+  handleTechnologiesToSortChange: PropTypes.func,
+  handleSearchBarDataChange: PropTypes.func,
+  handleRepositoryDataLengthChange: PropTypes.func,
+}
+
 export default SearchBar;

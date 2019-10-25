@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
+import PropTypes from 'prop-types';
 
 const BoxWrapper = styled.section`
   display: flex;
@@ -120,6 +121,14 @@ function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, rep
       </StyledSelect>
     </BoxWrapper>
   );
+}
+
+RepositoryUserBox.propTypes = {
+  owner: PropTypes.object,
+  technologies: PropTypes.array,
+  handleChangeSelectedValue: PropTypes.func,
+  repositoryDataLength: PropTypes.number,
+  data: PropTypes.array
 }
 
 export default RepositoryUserBox;
