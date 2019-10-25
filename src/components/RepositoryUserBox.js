@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
@@ -84,6 +84,10 @@ function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, rep
   });
 
   const [selectedFilterOption, setSelectedFilterOption] = useState("all");
+
+  useEffect(() => {
+    setSelectedFilterOption("all")
+  }, [data])
 
   return (
     <BoxWrapper>
