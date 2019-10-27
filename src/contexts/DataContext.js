@@ -1,5 +1,5 @@
 import React from 'react'
 
-const DataContext = React.createContext({data: null});
+const DataContext = React.createContext([{}, () => {}]);
 
 export default DataContext;

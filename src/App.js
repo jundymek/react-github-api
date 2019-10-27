@@ -55,6 +55,7 @@ function App() {
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
   const [isUserNotFound, setIsUserNotFound] = useState(false)
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
+  const [userData, setUserData] = useState(null)
 
   const handleScroll = useCallback(
     () => {
@@ -79,8 +80,6 @@ function App() {
     };
   }, [handleScroll, isUserNotFound]);
 
-  
-
   return (
     <MainWrapper>
       <MainHeader
@@ -90,12 +89,13 @@ function App() {
         handleRepositoryDataLengthChange={value => setRepositoryDataLength(value)}
         isUserNotFound={isUserNotFound}
         setIsUserNotFound={value => setIsUserNotFound(value)}
+        setUserData={value => setUserData(value)}
       />
       {isUserNotFound ? (
         <UserNotFoundBox />
       ) : ''}
       {repositoryData ? (
-        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} repositoryDataLength={repositoryDataLength} />
+        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} repositoryDataLength={repositoryDataLength} user={userData} />
       ) : (
         <Paragraph isInvisible={isUserNotFound}>
           Please fill above form to get data from GitHub API. List all repositories of specified user.

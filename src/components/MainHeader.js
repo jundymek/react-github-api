@@ -37,7 +37,7 @@ const StyledH1 = styled.h1`
   }
 `;
 
-function MainHeader({ isData, handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataLengthChange, setIsUserNotFound, isUserNotFound }) {
+function MainHeader({ isData, handleSearchBarDataChange, handleTechnologiesToSortChange, handleRepositoryDataLengthChange, setIsUserNotFound, isUserNotFound, setUserData }) {
   return (
     <StyledHeader isData={isData} isUserNotFound={isUserNotFound}>
       <StyledH1>Github repos - API</StyledH1>
@@ -46,6 +46,7 @@ function MainHeader({ isData, handleSearchBarDataChange, handleTechnologiesToSor
         handleTechnologiesToSortChange={handleTechnologiesToSortChange} 
         handleRepositoryDataLengthChange={handleRepositoryDataLengthChange}
         setIsUserNotFound={setIsUserNotFound}
+        setUserData={setUserData}
 
       />
     </StyledHeader>

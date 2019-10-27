@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
@@ -57,11 +57,13 @@ function SearchBar({
   setIsUserNotFound,
   handleTechnologiesToSortChange,
   handleSearchBarDataChange,
-  handleRepositoryDataLengthChange
+  handleRepositoryDataLengthChange,
+  setUserData
 }) {
   const [inputValue, setInputValue] = useState("");
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -71,7 +73,7 @@ function SearchBar({
         if (resp.message && resp.message.includes("Not Found")) {
           setIsUserNotFound(true);
         } else {
-          console.log(resp)
+          setUserData(resp)
           setIsUserNotFound(false);
           handleFetchData(inputValue).then(resp => {
             const wantedData = getWantedData(resp, isCheckboxPressed);

@@ -14,7 +14,7 @@ const StyledSection = styled.section`
   margin-bottom: 50px;
 `;
 
-function RepositoryListManager({data, technologiesToSort, repositoryDataLength}) {
+function RepositoryListManager({data, technologiesToSort, repositoryDataLength, user}) {
   const [repositoriesData, setData] = useState(data);
 
   const handleChangeSelectedValue = e => {
@@ -35,10 +35,11 @@ function RepositoryListManager({data, technologiesToSort, repositoryDataLength})
   };
 
   return (
+    console.log(user['login']),
     <StyledSection>
       <RepositoryUserBox
         repositoryCounter={repositoriesData.length}
-        owner={repositoriesData[0]["owner"]}
+        owner={user}
         technologies={technologiesToSort}
         handleChangeSelectedValue={handleChangeSelectedValue}
         repositoryDataLength={repositoryDataLength}
@@ -55,7 +56,8 @@ function RepositoryListManager({data, technologiesToSort, repositoryDataLength})
 RepositoryListManager.propTypes = {
   data: PropTypes.array,
   technologiesToSort: PropTypes.array,
-  repositoryDataLength: PropTypes.number
+  repositoryDataLength: PropTypes.number,
+  user: PropTypes.object
 }
 
 export default RepositoryListManager;
