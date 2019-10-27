@@ -6,8 +6,9 @@ import img2 from "../img/code2.jpg";
 import img3 from "../img/computer.jpg";
 import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 import { getWantedData } from "./helpers/getWantedData";
-import PropTypes from 'prop-types';
-
+import PropTypes from "prop-types";
+import { handleFetchData } from "./helpers/handleFetchData";
+import { handleFetchUserData } from "./helpers/handleFetchUserData";
 
 export const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
@@ -52,47 +53,51 @@ const StyledButton = styled.button`
   }
 `;
 
-function SearchBar({setIsUserNotFound, handleTechnologiesToSortChange, handleSearchBarDataChange, handleRepositoryDataLengthChange}) {
+function SearchBar({
+  setIsUserNotFound,
+  handleTechnologiesToSortChange,
+  handleSearchBarDataChange,
+  handleRepositoryDataLengthChange
+}) {
   const [inputValue, setInputValue] = useState("");
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-  const handleFetchData = (e, data) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setisLoading(true);
-    fetch(`https://api.github.com/users/${data}/repos?sort=updated_at&order=desc`)
-      .then(resp => resp.json())
+    handleFetchUserData(inputValue)
       .then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
-          console.log(resp);
           setIsUserNotFound(true);
-          setisLoading(false);
         } else {
-          console.log(resp);
+          console.log(resp)
           setIsUserNotFound(false);
-          const wantedData = getWantedData(resp, isCheckboxPressed);
-          console.log(wantedData);
-          handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-          handleSearchBarDataChange(wantedData);
-          handleRepositoryDataLengthChange(wantedData.length);
-          setisLoading(false);
+          handleFetchData(inputValue).then(resp => {
+            const wantedData = getWantedData(resp, isCheckboxPressed);
+            handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+            handleSearchBarDataChange(wantedData);
+            handleRepositoryDataLengthChange(wantedData.length);
+          });
         }
+        setisLoading(false);
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    handleFetchData(e, inputValue);
-  };
-
   return (
     <StyledForm onSubmit={handleSubmit}>
       <label htmlFor="search">List specified user repositories</label>
       <InputWrapper>
-        <StyledInput id="search" type="text" placeholder="Search" onChange={e => setInputValue(e.target.value)} />
+        <StyledInput
+          id="search"
+          type="text"
+          aria-label="search-input"
+          placeholder="Search"
+          onChange={e => setInputValue(e.target.value)}
+        />
         <StyledButton>Search</StyledButton>
       </InputWrapper>
       <InputWrapper>
@@ -113,7 +118,7 @@ SearchBar.propTypes = {
   setIsUserNotFound: PropTypes.func,
   handleTechnologiesToSortChange: PropTypes.func,
   handleSearchBarDataChange: PropTypes.func,
-  handleRepositoryDataLengthChange: PropTypes.func,
-}
+  handleRepositoryDataLengthChange: PropTypes.func
+};
 
 export default SearchBar;

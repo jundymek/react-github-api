@@ -75,13 +75,13 @@ const Icon = styled.img`
 `;
 
 function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryDataLength, data }) {
-  const filterOptions = technologies.map((item, index) => {
+  const filterOptions = technologies ? technologies.map((item, index) => {
     return (
       <option key={index} value={item}>
         {item}
       </option>
     );
-  });
+  }): null;
 
   const [selectedFilterOption, setSelectedFilterOption] = useState("all");
 
