@@ -4,6 +4,7 @@ import RepositoryListManager from "./components/RepositoryListManager";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import { UserNotFoundBox } from "./components/UserNotFoundBox";
+import { getTechnologiesToSort } from "./components/helpers/getTechnologiesToSort";
 
 const MainWrapper = styled.main`
   display: flex;
@@ -37,7 +38,7 @@ const Arrow = styled.a`
 `;
 
 const Paragraph = styled.p`
-  display: ${(props) => (props.isInvisible ? 'none' : 'block')};
+  display: ${props => (props.isInvisible ? "none" : "block")};
   width: 35%;
   align-self: flex-end;
   text-align: justify;
@@ -53,26 +54,30 @@ function App() {
   const [repositoryData, setRepositoryData] = useState(null);
   const [repositoryDataLength, setRepositoryDataLength] = useState(null);
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
-  const [isUserNotFound, setIsUserNotFound] = useState(false)
+  const [isUserNotFound, setIsUserNotFound] = useState(false);
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState(null);
 
-  const handleScroll = useCallback(
-    () => {
-      if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
-        setScrollArrowShow(true);
-      }
-      if (window.scrollY <= 0) {
-        setScrollArrowShow(false);
-      }
-    },
-    [repositoryData, scrollArrowShow],
-  )
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
+      setScrollArrowShow(true);
+    }
+    if (window.scrollY <= 0) {
+      setScrollArrowShow(false);
+    }
+  }, [repositoryData, scrollArrowShow]);
+
+  useEffect(() => {
+    if (repositoryData) {
+      setRepositoryDataLength(repositoryData.length);
+      setTechnologiesToSort(getTechnologiesToSort(repositoryData));
+    }
+  }, [repositoryData]);
 
   useEffect(() => {
     if (isUserNotFound) {
-      console.log('USERNOT RERENDER')
-      setRepositoryData(null)
+      console.log("USERNOT RERENDER");
+      setRepositoryData(null);
     }
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -85,17 +90,17 @@ function App() {
       <MainHeader
         isData={repositoryData ? true : null}
         handleSearchBarDataChange={value => setRepositoryData(value)}
-        handleTechnologiesToSortChange={value => setTechnologiesToSort(value)}
-        handleRepositoryDataLengthChange={value => setRepositoryDataLength(value)}
-        isUserNotFound={isUserNotFound}
         setIsUserNotFound={value => setIsUserNotFound(value)}
         setUserData={value => setUserData(value)}
       />
-      {isUserNotFound ? (
-        <UserNotFoundBox />
-      ) : ''}
+      {isUserNotFound ? <UserNotFoundBox /> : ""}
       {repositoryData ? (
-        <RepositoryListManager data={repositoryData} technologiesToSort={technologiesToSort} repositoryDataLength={repositoryDataLength} user={userData} />
+        <RepositoryListManager
+          data={repositoryData}
+          technologiesToSort={technologiesToSort}
+          repositoryDataLength={repositoryDataLength}
+          user={userData}
+        />
       ) : (
         <Paragraph isInvisible={isUserNotFound}>
           Please fill above form to get data from GitHub API. List all repositories of specified user.

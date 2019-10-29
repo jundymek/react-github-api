@@ -4,11 +4,8 @@ import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
 import img2 from "../img/code2.jpg";
 import img3 from "../img/computer.jpg";
-import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 import { getWantedData } from "./helpers/getWantedData";
 import PropTypes from "prop-types";
-import { handleFetchData } from "./helpers/handleFetchData";
-import { handleFetchUserData } from "./helpers/handleFetchUserData";
 import { chainedFetch } from "./helpers/chainedFetch";
 
 export const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
@@ -56,9 +53,7 @@ const StyledButton = styled.button`
 
 function SearchBar({
   setIsUserNotFound,
-  handleTechnologiesToSortChange,
   handleSearchBarDataChange,
-  handleRepositoryDataLengthChange,
   setUserData
 }) {
   const [inputValue, setInputValue] = useState("");
@@ -74,9 +69,7 @@ function SearchBar({
         setIsUserNotFound(false);
         setUserData(user);
         const wantedData = getWantedData(repositories, isCheckboxPressed);
-        handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
         handleSearchBarDataChange(wantedData);
-        handleRepositoryDataLengthChange(wantedData.length);
       })
       .catch(error => {
         setIsUserNotFound(error === "Not Found");
