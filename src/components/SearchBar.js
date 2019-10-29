@@ -9,6 +9,7 @@ import { getWantedData } from "./helpers/getWantedData";
 import PropTypes from "prop-types";
 import { handleFetchData } from "./helpers/handleFetchData";
 import { handleFetchUserData } from "./helpers/handleFetchUserData";
+import { chainedFetch } from "./helpers/chainedFetch";
 
 export const images = [`${img}`, `${img1}`, `${img2}`, `${img3}`];
 
@@ -64,30 +65,57 @@ function SearchBar({
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-
   const handleSubmit = e => {
     e.preventDefault();
     setisLoading(true);
-    handleFetchUserData(inputValue)
-      .then(resp => {
-        if (resp.message && resp.message.includes("Not Found")) {
-          setIsUserNotFound(true);
-        } else {
-          setUserData(resp)
-          setIsUserNotFound(false);
-          handleFetchData(inputValue).then(resp => {
-            const wantedData = getWantedData(resp, isCheckboxPressed);
-            handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-            handleSearchBarDataChange(wantedData);
-            handleRepositoryDataLengthChange(wantedData.length);
-          });
-        }
-        setisLoading(false);
+    chainedFetch(inputValue)
+      .then(({ user, repositories }) => {
+        console.log(user);
+        setIsUserNotFound(false);
+        setUserData(user);
+        const wantedData = getWantedData(repositories, isCheckboxPressed);
+        handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+        handleSearchBarDataChange(wantedData);
+        handleRepositoryDataLengthChange(wantedData.length);
       })
       .catch(error => {
+        setIsUserNotFound(error === "Not Found");
         console.log(error);
+      })
+      .finally(() => {
+        setisLoading(false);
       });
   };
+
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   setisLoading(true);
+  //   handleFetchUserData(inputValue)
+  //     .then(resp => {
+  //       console.log(resp)
+  //       // if (resp.message && resp.message.includes("Not Found")) {
+  //       //   console.log(resp.message)
+  //       //   setIsUserNotFound(true);
+  //       //   throw new Error('error');
+  //       // } else {
+  //       //   setUserData(resp)
+  //       //   console.log(resp)
+  //       //   setIsUserNotFound(false);
+  //       // }
+  //     }).then(() => {
+  //           handleFetchData(inputValue).then(resp => {
+  //             const wantedData = getWantedData(resp, isCheckboxPressed);
+  //             handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
+  //             handleSearchBarDataChange(wantedData);
+  //             handleRepositoryDataLengthChange(wantedData.length);
+  //           });
+  //           setisLoading(false);
+  //     }).catch(err => {
+  //       console.log(err)
+  //       setisLoading(false);
+  //       }
+  //     )
+  // };
 
   return (
     <StyledForm onSubmit={handleSubmit}>

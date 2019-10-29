@@ -47,7 +47,6 @@ function MainHeader({ isData, handleSearchBarDataChange, handleTechnologiesToSor
         handleRepositoryDataLengthChange={handleRepositoryDataLengthChange}
         setIsUserNotFound={setIsUserNotFound}
         setUserData={setUserData}
-
       />
     </StyledHeader>
   );
