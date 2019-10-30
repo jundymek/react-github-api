@@ -35,7 +35,7 @@ function RepositoryListManager({data, technologiesToSort, repositoryDataLength, 
   };
 
   return (
-    console.log(user['login']),
+    // console.log(user['login']),
     <StyledSection>
       <RepositoryUserBox
         repositoryCounter={repositoriesData.length}

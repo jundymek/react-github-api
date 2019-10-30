@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import img from "../img/code.jpg";
 import img1 from "../img/code1.jpg";
@@ -52,7 +52,7 @@ const StyledButton = styled.button`
 `;
 
 function SearchBar({
-  setIsUserNotFound,
+  // setIsUserNotFound,
   handleSearchBarDataChange,
   setUserData
 }) {
@@ -66,13 +66,15 @@ function SearchBar({
     chainedFetch(inputValue)
       .then(({ user, repositories }) => {
         console.log(user);
-        setIsUserNotFound(false);
         setUserData(user);
         const wantedData = getWantedData(repositories, isCheckboxPressed);
         handleSearchBarDataChange(wantedData);
       })
       .catch(error => {
-        setIsUserNotFound(error === "Not Found");
+        console.log('EEEEEEEEEEEERRR')
+        handleSearchBarDataChange(null);
+        // setUserData(error === "Not Found");
+        setUserData(null);
         console.log(error);
       })
       .finally(() => {

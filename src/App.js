@@ -54,9 +54,8 @@ function App() {
   const [repositoryData, setRepositoryData] = useState(null);
   const [repositoryDataLength, setRepositoryDataLength] = useState(null);
   const [technologiesToSort, setTechnologiesToSort] = useState(null);
-  const [isUserNotFound, setIsUserNotFound] = useState(false);
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(false);
 
   const handleScroll = useCallback(() => {
     if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
@@ -75,25 +74,20 @@ function App() {
   }, [repositoryData]);
 
   useEffect(() => {
-    if (isUserNotFound) {
-      console.log("USERNOT RERENDER");
-      setRepositoryData(null);
-    }
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll, isUserNotFound]);
+  }, [handleScroll]);
 
   return (
     <MainWrapper>
       <MainHeader
-        isData={repositoryData ? true : null}
+        smallerHeight={userData===null || repositoryData ? true : null}
         handleSearchBarDataChange={value => setRepositoryData(value)}
-        setIsUserNotFound={value => setIsUserNotFound(value)}
         setUserData={value => setUserData(value)}
       />
-      {isUserNotFound ? <UserNotFoundBox /> : ""}
+      {userData===null ? <UserNotFoundBox /> : ""}
       {repositoryData ? (
         <RepositoryListManager
           data={repositoryData}
@@ -102,7 +96,7 @@ function App() {
           user={userData}
         />
       ) : (
-        <Paragraph isInvisible={isUserNotFound}>
+        <Paragraph isInvisible={userData===null}>
           Please fill above form to get data from GitHub API. List all repositories of specified user.
         </Paragraph>
       )}

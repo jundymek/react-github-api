@@ -13,12 +13,12 @@ const StyledHeader = styled.header`
   justify-content: center;
   margin-top: -50px;
   transition: min-height 1s ease-out; 
-  min-height: ${props => props.isData || props.isUserNotFound ? '400px': '100vh'};
+  min-height: ${props => props.smallerHeight ? '400px': '100vh'};
   clip-path: polygon(0 0, 100% 0, 100% 74%, 0 99%);
   background: #000;
   color: #fff;
   @media (max-width: 768px) {
-    min-height: ${props => props.isData ? '400px': '90vh'};
+    min-height: ${props => props.smallerHeight ? '400px': '90vh'};
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -37,13 +37,12 @@ const StyledH1 = styled.h1`
   }
 `;
 
-function MainHeader({ isData, handleSearchBarDataChange, setIsUserNotFound, isUserNotFound, setUserData }) {
+function MainHeader({ smallerHeight, handleSearchBarDataChange, setUserData }) {
   return (
-    <StyledHeader isData={isData} isUserNotFound={isUserNotFound}>
+    <StyledHeader smallerHeight={smallerHeight}>
       <StyledH1>Github repos - API</StyledH1>
       <SearchBar 
         handleSearchBarDataChange={handleSearchBarDataChange}  
-        setIsUserNotFound={setIsUserNotFound}
         setUserData={setUserData}
       />
     </StyledHeader>
