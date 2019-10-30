@@ -37,13 +37,12 @@ const StyledH1 = styled.h1`
   }
 `;
 
-function MainHeader({ smallerHeight, handleSearchBarDataChange, setUserData }) {
+function MainHeader({ smallerHeight, dataChange }) {
   return (
     <StyledHeader smallerHeight={smallerHeight}>
       <StyledH1>Github repos - API</StyledH1>
       <SearchBar 
-        handleSearchBarDataChange={handleSearchBarDataChange}  
-        setUserData={setUserData}
+        dataChange={dataChange}  
       />
     </StyledHeader>
   );
@@ -51,9 +50,9 @@ function MainHeader({ smallerHeight, handleSearchBarDataChange, setUserData }) {
 
 MainHeader.propTypes = {
   isData: PropTypes.bool,
-  handleSearchBarDataChange: PropTypes.func,
+  dataChange: PropTypes.func,
   handleTechnologiesToSortChange: PropTypes.func,
-  handleRepositoryDataLengthChange: PropTypes.func,
+  handledataLengthChange: PropTypes.func,
   setIsUserNotFound: PropTypes.func,
   isUserNotFound: PropTypes.bool
 }

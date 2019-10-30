@@ -11,7 +11,11 @@ export function chainedFetch(value) {
       console.log("FETHING-user");
       return handleFetchUserData(result.input).then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
-          return Promise.reject("Not Found");
+          return {
+            ...result,
+            user: null,
+            repositories: []
+          };
         } else {
           console.log(resp.message);
           return {
@@ -22,12 +26,20 @@ export function chainedFetch(value) {
       });
     })
     .then(result => {
+      console.log(result);
       console.log("FETHING-data");
-      return handleFetchData(result.input).then(data => {
+      if (result.user !== null) {
+        console.log(result);
+        return handleFetchData(result.input).then(data => {
+          return {
+            ...result,
+            repositories: data
+          };
+        });
+      } else {
         return {
-          ...result,
-          repositories: data
+          ...result
         };
-      });
+      }
     });
 }

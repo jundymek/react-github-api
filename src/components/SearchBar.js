@@ -51,11 +51,7 @@ const StyledButton = styled.button`
   }
 `;
 
-function SearchBar({
-  // setIsUserNotFound,
-  handleSearchBarDataChange,
-  setUserData
-}) {
+function SearchBar({ dataChange }) {
   const [inputValue, setInputValue] = useState("");
   const [isCheckboxPressed, setIsCheckboxPressed] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -64,17 +60,17 @@ function SearchBar({
     e.preventDefault();
     setisLoading(true);
     chainedFetch(inputValue)
-      .then(({ user, repositories }) => {
-        console.log(user);
-        setUserData(user);
-        const wantedData = getWantedData(repositories, isCheckboxPressed);
-        handleSearchBarDataChange(wantedData);
+      .then(resp => {
+        console.log(resp);
+        if (resp) {
+          resp.repositories = getWantedData(resp.repositories, isCheckboxPressed);
+          console.log(resp);
+          dataChange(resp);
+        }
       })
       .catch(error => {
-        console.log('EEEEEEEEEEEERRR')
-        handleSearchBarDataChange(null);
-        // setUserData(error === "Not Found");
-        setUserData(null);
+        console.log("EEEEEEEEEEEERRR");
+        dataChange({ input: "", user: [], repositories: [] });
         console.log(error);
       })
       .finally(() => {
@@ -101,8 +97,8 @@ function SearchBar({
   //           handleFetchData(inputValue).then(resp => {
   //             const wantedData = getWantedData(resp, isCheckboxPressed);
   //             handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-  //             handleSearchBarDataChange(wantedData);
-  //             handleRepositoryDataLengthChange(wantedData.length);
+  //             dataChange(wantedData);
+  //             handledataLengthChange(wantedData.length);
   //           });
   //           setisLoading(false);
   //     }).catch(err => {
@@ -142,8 +138,8 @@ function SearchBar({
 SearchBar.propTypes = {
   setIsUserNotFound: PropTypes.func,
   handleTechnologiesToSortChange: PropTypes.func,
-  handleSearchBarDataChange: PropTypes.func,
-  handleRepositoryDataLengthChange: PropTypes.func
+  dataChange: PropTypes.func,
+  handledataLengthChange: PropTypes.func
 };
 
 export default SearchBar;

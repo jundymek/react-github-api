@@ -5,9 +5,9 @@ import MainHeader from "../../components/MainHeader";
 xtest('should ', () => {
     const props = {
         isData: false,
-        handleSearchBarDataChange: (x) => {},
+        dataChange: (x) => {},
         handleTechnologiesToSortChange: (x) => {},
-        handleRepositoryDataLengthChange: (x) => {},
+        handledataLengthChange: (x) => {},
         isUserNotFound: true,
         setIsUserNotFound: (x) => {}
     }

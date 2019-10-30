@@ -4,7 +4,6 @@ import RepositoryListManager from "./components/RepositoryListManager";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import { UserNotFoundBox } from "./components/UserNotFoundBox";
-import { getTechnologiesToSort } from "./components/helpers/getTechnologiesToSort";
 
 const MainWrapper = styled.main`
   display: flex;
@@ -51,27 +50,18 @@ const Paragraph = styled.p`
 `;
 
 function App() {
-  const [repositoryData, setRepositoryData] = useState(null);
-  const [repositoryDataLength, setRepositoryDataLength] = useState(null);
-  const [technologiesToSort, setTechnologiesToSort] = useState(null);
+  const [data, setdata] = useState({ input: '', user: "", repositories: [] });
   const [scrollArrowShow, setScrollArrowShow] = useState(false);
-  const [userData, setUserData] = useState(false);
 
   const handleScroll = useCallback(() => {
-    if (window.scrollY > 0 && !scrollArrowShow && repositoryData) {
+    if (window.scrollY > 0 && !scrollArrowShow && data) {
       setScrollArrowShow(true);
     }
     if (window.scrollY <= 0) {
       setScrollArrowShow(false);
     }
-  }, [repositoryData, scrollArrowShow]);
+  }, [data, scrollArrowShow]);
 
-  useEffect(() => {
-    if (repositoryData) {
-      setRepositoryDataLength(repositoryData.length);
-      setTechnologiesToSort(getTechnologiesToSort(repositoryData));
-    }
-  }, [repositoryData]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -83,23 +73,19 @@ function App() {
   return (
     <MainWrapper>
       <MainHeader
-        smallerHeight={userData===null || repositoryData ? true : null}
-        handleSearchBarDataChange={value => setRepositoryData(value)}
-        setUserData={value => setUserData(value)}
+        smallerHeight={data.input !== '' ? true : null}
+        dataChange={value => setdata(value)}
       />
-      {userData===null ? <UserNotFoundBox /> : ""}
-      {repositoryData ? (
+      {data.user === null ? <UserNotFoundBox /> : ""}
+      {data.repositories.length ? (
         <RepositoryListManager
-          data={repositoryData}
-          technologiesToSort={technologiesToSort}
-          repositoryDataLength={repositoryDataLength}
-          user={userData}
+          data={data}
         />
       ) : (
-        <Paragraph isInvisible={userData===null}>
-          Please fill above form to get data from GitHub API. List all repositories of specified user.
+          <Paragraph isInvisible={data.input === '' ? false : true}>
+            Please fill above form to get data from GitHub API. List all repositories of specified user.
         </Paragraph>
-      )}
+        )}
       <Arrow isScrollArrowVisible={scrollArrowShow} href="#" />
       <Footer />
     </MainWrapper>

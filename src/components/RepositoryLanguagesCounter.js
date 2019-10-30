@@ -9,6 +9,7 @@ export function RepositoryLanguagesCounter({ technologies, data }) {
       </li>
     );
   }) : null;
+  
   function countTechnologies(language) {
     return data.filter(data => (language !== "Other" ? data["language"] === language : data["language"] === null))
       .length;

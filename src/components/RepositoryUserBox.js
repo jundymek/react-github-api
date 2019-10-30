@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const BoxWrapper = styled.section`
   display: flex;
@@ -74,38 +74,40 @@ const Icon = styled.img`
   height: 20px;
 `;
 
-function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, repositoryDataLength, data }) {
-  const filterOptions = technologies ? technologies.map((item, index) => {
-    return (
-      <option key={index} value={item}>
-        {item}
-      </option>
-    );
-  }): null;
+function RepositoryUserBox({ technologies, handleChangeSelectedValue, data }) {
+  const filterOptions = technologies
+    ? technologies.map((item, index) => {
+        return (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        );
+      })
+    : null;
 
   const [selectedFilterOption, setSelectedFilterOption] = useState("all");
+  console.log(technologies);
 
   useEffect(() => {
-    setSelectedFilterOption("all")
-  }, [data])
+    setSelectedFilterOption("all");
+  }, [data]);
 
   return (
     <BoxWrapper>
-      <StyledH2>Repositories of {owner.login}</StyledH2>
-      <UserImage src={owner.avatar_url} />
+      <StyledH2>Repositories of {data.user.login}</StyledH2>
+      <UserImage src={data.user.avatar_url} />
       <UserBoxUl>
-        <UserBoxLi>Number of repositories: {repositoryDataLength}</UserBoxLi>
+        <UserBoxLi>Number of repositories: {data.repositories.length}</UserBoxLi>
         <ol>
           <RepositoryLanguagesCounter
-            data={data}
+            data={data.repositories}
             technologies={technologies}
-            repositoryDataLength={repositoryDataLength}
           />
         </ol>
 
         <UserBoxLi>
           Github link:{" "}
-          <a href="https://github.com/jundymek" aria-label="Link to github profile">
+          <a href={data.user.html_url} aria-label="Link to github profile">
             <Icon src={img} alt="Github icon" />
           </a>
         </UserBoxLi>
@@ -128,11 +130,9 @@ function RepositoryUserBox({ owner, technologies, handleChangeSelectedValue, rep
 }
 
 RepositoryUserBox.propTypes = {
-  owner: PropTypes.object,
   technologies: PropTypes.array,
   handleChangeSelectedValue: PropTypes.func,
-  repositoryDataLength: PropTypes.number,
-  data: PropTypes.array
-}
+  data: PropTypes.object
+};
 
 export default RepositoryUserBox;
