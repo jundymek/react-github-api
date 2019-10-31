@@ -3,6 +3,7 @@ import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
 import PropTypes from "prop-types";
+import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 
 const BoxWrapper = styled.section`
   display: flex;
@@ -74,9 +75,9 @@ const Icon = styled.img`
   height: 20px;
 `;
 
-function RepositoryUserBox({ technologies, handleChangeSelectedValue, data }) {
-  const filterOptions = technologies
-    ? technologies.map((item, index) => {
+function RepositoryUserBox({ handleChangeSelectedValue, data }) {
+  const filterOptions = data.repositories
+    ? getTechnologiesToSort(data).map((item, index) => {
         return (
           <option key={index} value={item}>
             {item}
@@ -86,7 +87,6 @@ function RepositoryUserBox({ technologies, handleChangeSelectedValue, data }) {
     : null;
 
   const [selectedFilterOption, setSelectedFilterOption] = useState("all");
-  console.log(technologies);
 
   useEffect(() => {
     setSelectedFilterOption("all");
@@ -101,7 +101,7 @@ function RepositoryUserBox({ technologies, handleChangeSelectedValue, data }) {
         <ol>
           <RepositoryLanguagesCounter
             data={data.repositories}
-            technologies={technologies}
+            technologies={getTechnologiesToSort(data)}
           />
         </ol>
 

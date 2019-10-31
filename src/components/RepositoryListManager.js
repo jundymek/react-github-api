@@ -5,7 +5,6 @@ import RepositoryUserBox from "./RepositoryUserBox";
 import RepositoryBox from "./RepositoryBox";
 import PropTypes from "prop-types";
 import { getFilteredDataByTechnology } from "./helpers/getFilteredDataByTechnology";
-import { getTechnologiesToSort } from "./helpers/getTechnologiesToSort";
 
 const StyledSection = styled.section`
   display: flex;
@@ -33,7 +32,6 @@ function RepositoryListManager({ data }) {
   return (
     <StyledSection>
       <RepositoryUserBox
-        technologies={getTechnologiesToSort(data)}
         handleChangeSelectedValue={handleChangeSelectedValue}
         data={data}
       />
