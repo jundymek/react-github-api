@@ -70,43 +70,13 @@ function SearchBar({ dataChange }) {
       })
       .catch(error => {
         console.log("EEEEEEEEEEEERRR");
-        dataChange({ input: "", user: [], repositories: [] });
+        dataChange({ input: "", user: null, repositories: [] });
         console.log(error);
       })
       .finally(() => {
         setisLoading(false);
       });
   };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   setisLoading(true);
-  //   handleFetchUserData(inputValue)
-  //     .then(resp => {
-  //       console.log(resp)
-  //       // if (resp.message && resp.message.includes("Not Found")) {
-  //       //   console.log(resp.message)
-  //       //   setIsUserNotFound(true);
-  //       //   throw new Error('error');
-  //       // } else {
-  //       //   setUserData(resp)
-  //       //   console.log(resp)
-  //       //   setIsUserNotFound(false);
-  //       // }
-  //     }).then(() => {
-  //           handleFetchData(inputValue).then(resp => {
-  //             const wantedData = getWantedData(resp, isCheckboxPressed);
-  //             handleTechnologiesToSortChange(getTechnologiesToSort(wantedData));
-  //             dataChange(wantedData);
-  //             handledataLengthChange(wantedData.length);
-  //           });
-  //           setisLoading(false);
-  //     }).catch(err => {
-  //       console.log(err)
-  //       setisLoading(false);
-  //       }
-  //     )
-  // };
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -136,10 +106,7 @@ function SearchBar({ dataChange }) {
 }
 
 SearchBar.propTypes = {
-  setIsUserNotFound: PropTypes.func,
-  handleTechnologiesToSortChange: PropTypes.func,
   dataChange: PropTypes.func,
-  handledataLengthChange: PropTypes.func
 };
 
 export default SearchBar;
