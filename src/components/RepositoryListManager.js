@@ -44,8 +44,7 @@ function RepositoryListManager({ data }) {
 }
 
 RepositoryListManager.propTypes = {
-  data: PropTypes.object,
-  technologiesToSort: PropTypes.array,
+  data: PropTypes.object.isRequired,
 };
 
 export default RepositoryListManager;
