@@ -4,7 +4,7 @@ import { shallow, mount } from "enzyme";
 import { render, getByText } from "@testing-library/react";
 import App from "../../App";
 
-xit("<APP /> renders without crashing", () => {
+it("<APP /> renders without crashing", () => {
   render(<App />);
 });
 
