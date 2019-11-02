@@ -88,6 +88,7 @@ function SearchBar({ dataChange }) {
           aria-label="search-input"
           placeholder="Search"
           onChange={e => setInputValue(e.target.value)}
+          required
         />
         <StyledButton>Search</StyledButton>
       </InputWrapper>

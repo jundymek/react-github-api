@@ -26,7 +26,7 @@ const setup = () => {
 //   jest.clearAllMocks();
 // });
 
-describe('<SearchBar />', () => {
+xdescribe('<SearchBar />', () => {
   it("Test handleFetchData input value", async () => {
     const { input, searchButton, testFetch, testUserFetch, chainedFetch } = setup();
     fireEvent.change(input, { target: { value: "jundymek" } });
