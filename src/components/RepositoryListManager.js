@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RepositoryList } from "./RepositoryList";
 import RepositoryUserBox from "./RepositoryUserBox";
 import RepositoryBox from "./RepositoryBox";
 import PropTypes from "prop-types";
-import { getFilteredDataByTechnology } from "./helpers/getFilteredDataByTechnology";
+import { useSetFilteredData } from "./customHooks/useSetFilteredData";
 
 const StyledSection = styled.section`
   display: flex;
@@ -15,14 +15,11 @@ const StyledSection = styled.section`
 `;
 
 function RepositoryListManager({ data }) {
-  const [filreredData, setFilreredData] = useState(data.repositories);
-
-  useEffect(() => {
-    setFilreredData(getFilteredDataByTechnology("all", data.repositories));
-  }, [data]);
+  const [selectedFilter, setSelectedFilter] = useState("all")
+  const filteredData = useSetFilteredData(data, selectedFilter)
 
   const handleChangeSelectedValue = e => {
-    setFilreredData(getFilteredDataByTechnology(e.target.value, data.repositories));
+    setSelectedFilter(e.target.value)
   };
 
   const renderRepositoryBox = (item, isMirrored, key) => {
@@ -36,7 +33,7 @@ function RepositoryListManager({ data }) {
         data={data}
       />
       <RepositoryList 
-        repositories={filreredData} 
+        repositories={filteredData} 
         renderRepositoryBox={renderRepositoryBox} 
       />
     </StyledSection>
