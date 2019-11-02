@@ -130,7 +130,6 @@ function RepositoryUserBox({ handleChangeSelectedValue, data }) {
 }
 
 RepositoryUserBox.propTypes = {
-  technologies: PropTypes.array,
   handleChangeSelectedValue: PropTypes.func,
   data: PropTypes.object
 };
