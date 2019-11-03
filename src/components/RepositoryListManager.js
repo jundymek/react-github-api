@@ -30,6 +30,7 @@ function RepositoryListManager({ data }) {
     <StyledSection>
       <RepositoryUserBox
         handleChangeSelectedValue={handleChangeSelectedValue}
+        selectedFilterOption={selectedFilter}
         data={data}
       />
       <RepositoryList 

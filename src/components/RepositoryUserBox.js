@@ -75,7 +75,7 @@ const Icon = styled.img`
   height: 20px;
 `;
 
-function RepositoryUserBox({ handleChangeSelectedValue, data }) {
+function RepositoryUserBox({ handleChangeSelectedValue, data, selectedFilterOption }) {
   const filterOptions = data.repositories
     ? getTechnologiesToSort(data).map((item, index) => {
         return (
@@ -85,12 +85,6 @@ function RepositoryUserBox({ handleChangeSelectedValue, data }) {
         );
       })
     : null;
-
-  const [selectedFilterOption, setSelectedFilterOption] = useState("all");
-
-  useEffect(() => {
-    setSelectedFilterOption("all");
-  }, [data]);
 
   return (
     <BoxWrapper>
@@ -118,7 +112,6 @@ function RepositoryUserBox({ handleChangeSelectedValue, data }) {
         id="language"
         onChange={e => {
           handleChangeSelectedValue(e);
-          setSelectedFilterOption(e.target.value);
         }}
         value={selectedFilterOption}
       >
@@ -131,7 +124,8 @@ function RepositoryUserBox({ handleChangeSelectedValue, data }) {
 
 RepositoryUserBox.propTypes = {
   handleChangeSelectedValue: PropTypes.func,
-  data: PropTypes.object
+  data: PropTypes.object,
+  selectedFilterOption: PropTypes.string
 };
 
 export default RepositoryUserBox;
