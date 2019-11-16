@@ -77,7 +77,7 @@ function App() {
         dataChange={value => setdata(value)}
       />
       {data.user === null ? <UserNotFoundBox /> : ""}
-      {data.repositories.length ? (
+      {data.user ? (
         <RepositoryListManager
           data={data}
         />

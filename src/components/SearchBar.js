@@ -61,15 +61,16 @@ function SearchBar({ dataChange }) {
     setisLoading(true);
     chainedFetch(inputValue)
       .then(resp => {
-        console.log(resp);
         if (resp) {
-          resp.repositories = getWantedData(resp.repositories, isCheckboxPressed);
-          console.log(resp);
-          dataChange(resp);
+          if (resp.repositories.length) {
+            resp.repositories = getWantedData(resp.repositories, isCheckboxPressed);
+            dataChange(resp);
+          } else {
+            dataChange({ input: inputValue, user: resp.user, repositories: [] })
+          }
         }
       })
       .catch(error => {
-        console.log("EEEEEEEEEEEERRR");
         dataChange({ input: "", user: null, repositories: [] });
         console.log(error);
       })
@@ -107,7 +108,7 @@ function SearchBar({ dataChange }) {
 }
 
 SearchBar.propTypes = {
-  dataChange: PropTypes.func,
+  dataChange: PropTypes.func
 };
 
 export default SearchBar;

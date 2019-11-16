@@ -8,7 +8,6 @@ export function chainedFetch(value) {
     repositories: []
   })
     .then(result => {
-      console.log("FETHING-user");
       return handleFetchUserData(result.input).then(resp => {
         if (resp.message && resp.message.includes("Not Found")) {
           return {
@@ -17,7 +16,6 @@ export function chainedFetch(value) {
             repositories: []
           };
         } else {
-          console.log(resp.message);
           return {
             ...result,
             user: resp
@@ -26,10 +24,7 @@ export function chainedFetch(value) {
       });
     })
     .then(result => {
-      console.log(result);
-      console.log("FETHING-data");
       if (result.user !== null) {
-        console.log(result);
         return handleFetchData(result.input).then(data => {
           return {
             ...result,

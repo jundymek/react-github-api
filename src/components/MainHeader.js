@@ -49,12 +49,8 @@ function MainHeader({ smallerHeight, dataChange }) {
 }
 
 MainHeader.propTypes = {
-  isData: PropTypes.bool,
+  smallerHeight: PropTypes.bool,
   dataChange: PropTypes.func,
-  handleTechnologiesToSortChange: PropTypes.func,
-  handledataLengthChange: PropTypes.func,
-  setIsUserNotFound: PropTypes.func,
-  isUserNotFound: PropTypes.bool
 }
 
 export default MainHeader;

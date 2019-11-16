@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import img from "../img/github_icon_small.png";
 import { RepositoryLanguagesCounter } from "./RepositoryLanguagesCounter";
@@ -106,6 +106,8 @@ function RepositoryUserBox({ handleChangeSelectedValue, data, selectedFilterOpti
           </a>
         </UserBoxLi>
       </UserBoxUl>
+      {data.repositories.length ? 
+      <>
       <StyledLabel htmlFor="language">Sort by language</StyledLabel>
       <StyledSelect
         style={{ background: "#7bd338", color: "#000" }}
@@ -117,7 +119,9 @@ function RepositoryUserBox({ handleChangeSelectedValue, data, selectedFilterOpti
       >
         <option value="all">All</option>
         {filterOptions}
-      </StyledSelect>
+      </StyledSelect></> 
+      : null}
+      
     </BoxWrapper>
   );
 }

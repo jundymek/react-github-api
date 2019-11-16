@@ -87,7 +87,7 @@ const RightSection = styled.div`
   }
 `;
 
-const Title = styled.h2`
+const Title = styled.h3`
   margin: 0;
   padding: 0;
   font-size: 1.5rem;
@@ -96,7 +96,7 @@ const Title = styled.h2`
   word-wrap: break-word;
 `;
 
-const SubTitle = styled.h3`
+const SubTitle = styled.span`
   margin-top: 20px;
   padding: 0;
   font-size: 1rem;

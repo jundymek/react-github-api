@@ -40,6 +40,7 @@
   "devDependencies": {
     "@testing-library/react": "^9.3.0",
     "gh-pages": "^2.1.1",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "jest-fetch-mock": "^2.1.2"
   }
 }
